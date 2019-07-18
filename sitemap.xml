@@ -4,6 +4,7 @@
 <url> <loc>http://blog.hszofficial.site/TutorialForGoLang/工具链/</loc> <changefreq>weekly</changefreq> <priority>0.5</priority> </url>
 <url> <loc>http://blog.hszofficial.site/TutorialForGoLang/工具链/go语言的编译器和编译环境搭建.html</loc> <changefreq>weekly</changefreq> <priority>0.5</priority> </url>
 <url> <loc>http://blog.hszofficial.site/TutorialForGoLang/工具链/依赖控制.html</loc> <changefreq>weekly</changefreq> <priority>0.5</priority> </url>
+<url> <loc>http://blog.hszofficial.site/TutorialForGoLang/工具链/log输出.html</loc> <changefreq>weekly</changefreq> <priority>0.5</priority> </url>
 <url> <loc>http://blog.hszofficial.site/TutorialForGoLang/工具链/代码风格控制.html</loc> <changefreq>weekly</changefreq> <priority>0.5</priority> </url>
 <url> <loc>http://blog.hszofficial.site/TutorialForGoLang/工具链/代码测试.html</loc> <changefreq>weekly</changefreq> <priority>0.5</priority> </url>
 <url> <loc>http://blog.hszofficial.site/TutorialForGoLang/工具链/总结.html</loc> <changefreq>weekly</changefreq> <priority>0.5</priority> </url>

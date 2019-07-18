@@ -25,10 +25,6 @@
                 
             
                 
-                <link rel="stylesheet" href="../gitbook/gitbook-plugin-katex/katex.min.css">
-                
-            
-                
                 <link rel="stylesheet" href="../gitbook/gitbook-plugin-splitter/splitter.css">
                 
             
@@ -195,7 +191,20 @@
             
         </li>
     
-        <li class="chapter " data-level="1.2.3" data-path="代码风格控制.html">
+        <li class="chapter " data-level="1.2.3" data-path="log输出.html">
+            
+                <a href="log输出.html">
+            
+                    
+                    log输出
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.4" data-path="代码风格控制.html">
             
                 <a href="代码风格控制.html">
             
@@ -208,7 +217,7 @@
             
         </li>
     
-        <li class="chapter active" data-level="1.2.4" data-path="代码测试.html">
+        <li class="chapter active" data-level="1.2.5" data-path="代码测试.html">
             
                 <a href="代码测试.html">
             
@@ -221,7 +230,7 @@
             
         </li>
     
-        <li class="chapter " data-level="1.2.5" data-path="性能基准测试.md">
+        <li class="chapter " data-level="1.2.6" data-path="性能基准测试.md">
             
                 <span>
             
@@ -234,7 +243,7 @@
             
         </li>
     
-        <li class="chapter " data-level="1.2.6" data-path="总结.html">
+        <li class="chapter " data-level="1.2.7" data-path="总结.html">
             
                 <a href="总结.html">
             
@@ -355,37 +364,39 @@
 <p>&#x5355;&#x5143;&#x6D4B;&#x8BD5;&#x7684;&#x6D4B;&#x8BD5;&#x7528;&#x4F8B;&#x5C31;&#x662F;&#x6D4B;&#x8BD5;&#x6A21;&#x5757;&#x4E2D;&#x4EE5;<code>Test</code>&#x5F00;&#x5934;&#x7684;&#x51FD;&#x6570;</p>
 <p>&#x6211;&#x4EEC;&#x4E3A;mymath&#x6DFB;&#x52A0;&#x6D4B;&#x8BD5;:</p>
 <ul>
-<li>mymath_test.go</li>
-</ul>
-<pre><code class="lang-go"><span class="hljs-comment">/*
-mymath
-&#x4E00;&#x4E2A;&#x6D4B;&#x8BD5;&#x7528;&#x7684;&#x6A21;&#x5757;,&#x5176;&#x4E2D;&#x53EA;&#x6709;&#x4E00;&#x4E2A;Sqrt&#x51FD;&#x6570;&#x7528;&#x4E8E;&#x725B;&#x987F;&#x6CD5;&#x6C42;&#x5F00;&#x6839;&#x53F7;.
-*/</span>
-<span class="hljs-keyword">package</span> mymath
-
-<span class="hljs-keyword">import</span> (
-    <span class="hljs-string">&quot;math&quot;</span>
-    <span class="hljs-string">&quot;testing&quot;</span>
-)
-
-<span class="hljs-keyword">func</span> TestSqrt(t *testing.T) {
-    <span class="hljs-keyword">type</span> args <span class="hljs-keyword">struct</span> {
-        x <span class="hljs-keyword">float64</span>
-    }
-    tests := []<span class="hljs-keyword">struct</span> {
-        name <span class="hljs-keyword">string</span>
-        args args
-        want <span class="hljs-keyword">float64</span>
-    }{{<span class="hljs-string">&quot;1&quot;</span>, args{<span class="hljs-number">1.0</span>}, <span class="hljs-number">1.000</span>}, {<span class="hljs-string">&quot;1&quot;</span>, args{<span class="hljs-number">2.0</span>}, <span class="hljs-number">1.414</span>}}
-    <span class="hljs-keyword">for</span> _, tt := <span class="hljs-keyword">range</span> tests {
-        t.Run(tt.name, <span class="hljs-keyword">func</span>(t *testing.T) {
-            <span class="hljs-keyword">if</span> got := math.Trunc(Sqrt(tt.args.x)*<span class="hljs-number">1e3</span>+<span class="hljs-number">0.5</span>) * <span class="hljs-number">1e-3</span>; got != tt.want {
-                t.Errorf(<span class="hljs-string">&quot;Sqrt() = %v, want %v&quot;</span>, got, tt.want)
-            }
-        })
-    }
-}
+<li><p>mymath_test.go</p>
+<pre><code class="lang-go">  <span class="hljs-comment">/*
+  mymath
+  &#x4E00;&#x4E2A;&#x6D4B;&#x8BD5;&#x7528;&#x7684;&#x6A21;&#x5757;,&#x5176;&#x4E2D;&#x53EA;&#x6709;&#x4E00;&#x4E2A;Sqrt&#x51FD;&#x6570;&#x7528;&#x4E8E;&#x725B;&#x987F;&#x6CD5;&#x6C42;&#x5F00;&#x6839;&#x53F7;.
+  */</span>
+  <span class="hljs-keyword">package</span> mymath
+  <span class="hljs-keyword">import</span> (
+      <span class="hljs-string">&quot;math&quot;</span>
+      <span class="hljs-string">&quot;testing&quot;</span>
+  )
+  <span class="hljs-keyword">func</span> TestSqrt(t *testing.T) {
+      <span class="hljs-keyword">type</span> args <span class="hljs-keyword">struct</span> {
+          x <span class="hljs-keyword">float64</span>
+      }
+      tests := []<span class="hljs-keyword">struct</span> {
+          name <span class="hljs-keyword">string</span>
+          args args
+          want <span class="hljs-keyword">float64</span>
+      }{
+          {<span class="hljs-string">&quot;1&quot;</span>, args{<span class="hljs-number">1.0</span>}, <span class="hljs-number">1.000</span>}, 
+          {<span class="hljs-string">&quot;1&quot;</span>, args{<span class="hljs-number">2.0</span>}, <span class="hljs-number">1.414</span>}
+      }
+      <span class="hljs-keyword">for</span> _, tt := <span class="hljs-keyword">range</span> tests {
+          t.Run(tt.name, <span class="hljs-keyword">func</span>(t *testing.T) {
+              <span class="hljs-keyword">if</span> got := math.Trunc(Sqrt(tt.args.x)*<span class="hljs-number">1e3</span>+<span class="hljs-number">0.5</span>) * <span class="hljs-number">1e-3</span>; got != tt.want {
+                  t.Errorf(<span class="hljs-string">&quot;Sqrt() = %v, want %v&quot;</span>, got, tt.want)
+              }
+          })
+      }
+  }
 </code></pre>
+</li>
+</ul>
 <p>&#x4E4B;&#x540E;&#x4F7F;&#x7528;&#x547D;&#x4EE4;<code>go test -v mymath_test.go</code>&#x5C31;&#x53EF;&#x4EE5;&#x6D4B;&#x8BD5;&#x8FD9;&#x4E2A;&#x6D4B;&#x8BD5;&#x6A21;&#x5757;&#x4E2D;&#x7684;&#x6240;&#x6709;&#x5355;&#x5143;&#x6D4B;&#x8BD5;&#x4E86;.&#x5176;&#x4E2D;<code>-v</code>&#x8868;&#x793A;&#x6D4B;&#x8BD5;&#x5185;&#x5BB9;&#x53EF;&#x89C1;.</p>
 <p>&#x6211;&#x4EEC;&#x4E5F;&#x53EF;&#x4EE5;&#x4F7F;&#x7528;<code>-run TestA$</code>&#x6765;&#x6307;&#x5B9A;&#x53EA;&#x6709;TestA&#x53C2;&#x4E0E;&#x6D4B;&#x8BD5;</p>
 <h3 id="&#x4EE3;&#x7801;&#x8986;&#x76D6;&#x7387;"><a name="&#x4EE3;&#x7801;&#x8986;&#x76D6;&#x7387;" class="anchor-navigation-ex-anchor" href="#&#x4EE3;&#x7801;&#x8986;&#x76D6;&#x7387;"><i class="fa fa-link" aria-hidden="true"></i></a>1.1.1. &#x4EE3;&#x7801;&#x8986;&#x76D6;&#x7387;</h3>
@@ -398,7 +409,7 @@ mymath
 </code></pre>
 <p>&#x4E4B;&#x540E;&#x4F7F;&#x7528;&#x547D;&#x4EE4;<code>go test -v -bench=. benchmark_test.go</code> </p>
 <footer class="page-footer"><span class="copyright">Copyright &#xA9; hsz 2019 all right reserved&#xFF0C;powered by Gitbook</span><span class="footer-modification">&#x8BE5;&#x6587;&#x4EF6;&#x4FEE;&#x8BA2;&#x65F6;&#x95F4;&#xFF1A;
-2019-04-01 16:32:21
+2019-07-18 21:09:59
 </span></footer>
                                 
                                 </section>
@@ -442,7 +453,7 @@ mymath
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"代码测试","level":"1.2.4","depth":2,"next":{"title":"性能基准测试","level":"1.2.5","depth":2,"path":"工具链/性能基准测试.md","ref":"工具链/性能基准测试.md","articles":[]},"previous":{"title":"代码风格控制","level":"1.2.3","depth":2,"path":"工具链/代码风格控制.md","ref":"工具链/代码风格控制.md","articles":[]},"dir":"ltr"},"config":{"plugins":["-lunr","-search","search-pro","advanced-emoji","github","github-buttons","katex","splitter","expandable-chapters-small","tbfed-pagefooter","-sharing","donate","sitemap-general","anchors","anchor-navigation-ex"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"tbfed-pagefooter":{"copyright":"Copyright &copy hsz 2019","modify_label":"该文件修订时间：","modify_format":"YYYY-MM-DD HH:mm:ss"},"github":{"url":"http://blog.hszofficial.site/TutorialForGoLang"},"splitter":{},"search-pro":{"cutWordLib":"nodejieba","defineWord":["Gitbook Use"]},"donate":{"title":"","button":"赏","wechat":"http://blog.hszofficial.site/img/wechat_donate.jpg","alipay":"http://blog.hszofficial.site/img/zhifubao_donate.jpg","wechatText":"微信打赏","alipayText":"支付宝打赏"},"sitemap-general":{"prefix":"http://blog.hszofficial.site/TutorialForGoLang/"},"katex":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"anchor-navigation-ex":{"associatedWithSummary":true,"float":{"floatIcon":"fa fa-navicon","level1Icon":"fa fa-hand-o-right","level2Icon":"fa fa-hand-o-right","level3Icon":"fa fa-hand-o-right","showLevelIcon":true},"mode":"float","multipleH1":true,"pageTop":{"showLevelIcon":false,"mode":"float","pageTop":{"showLevelIcon":false,"level1Icon":"fa fa-hand-o-right","level2Icon":"fa fa-hand-o-right","level3Icon":"fa fa-hand-o-right"},"level1Icon":"","showLevel":true,"level2Icon":"","level3Icon":"","associatedWithSummary":true,"float":{"showLevelIcon":true,"level1Icon":"fa fa-hand-o-right","level2Icon":"fa fa-hand-o-right","level3Icon":"fa fa-hand-o-right"}},"printLog":false,"showGoTop":true,"showLevel":true},"github-buttons":{"repo":"hsz1273327/TutorialForGoLang","types":["star","watch","fork"],"size":"small"},"expandable-chapters-small":{},"advanced-emoji":{"embedEmojis":false},"sharing":{"weibo":false,"facebook":false,"twitter":false,"google":true,"instapaper":false,"vk":false,"all":["google"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"anchors":{}},"theme":"default","author":"hsz","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"Golang攻略","language":"zh-hans","links":{"sidebar":{"Home":"http://blog.hszofficial.site/"}},"gitbook":">=2.0.0","description":"Golang编程和主流使用场景介绍"},"file":{"path":"工具链/代码测试.md","mtime":"2019-04-01T08:32:21.247Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2019-04-08T03:39:41.455Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"代码测试","level":"1.2.5","depth":2,"next":{"title":"性能基准测试","level":"1.2.6","depth":2,"path":"工具链/性能基准测试.md","ref":"工具链/性能基准测试.md","articles":[]},"previous":{"title":"代码风格控制","level":"1.2.4","depth":2,"path":"工具链/代码风格控制.md","ref":"工具链/代码风格控制.md","articles":[]},"dir":"ltr"},"config":{"plugins":["-lunr","-search","search-pro","advanced-emoji","github","github-buttons","splitter","expandable-chapters-small","tbfed-pagefooter","-sharing","donate","sitemap-general","anchors","anchor-navigation-ex"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"tbfed-pagefooter":{"copyright":"Copyright &copy hsz 2019","modify_label":"该文件修订时间：","modify_format":"YYYY-MM-DD HH:mm:ss"},"github":{"url":"http://blog.hszofficial.site/TutorialForGoLang"},"splitter":{},"search-pro":{"cutWordLib":"nodejieba","defineWord":["Gitbook Use"]},"donate":{"title":"","button":"赏","wechat":"http://blog.hszofficial.site/img/wechat_donate.jpg","alipay":"http://blog.hszofficial.site/img/zhifubao_donate.jpg","wechatText":"微信打赏","alipayText":"支付宝打赏"},"sitemap-general":{"prefix":"http://blog.hszofficial.site/TutorialForGoLang/"},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"anchor-navigation-ex":{"associatedWithSummary":true,"float":{"floatIcon":"fa fa-navicon","level1Icon":"fa fa-hand-o-right","level2Icon":"fa fa-hand-o-right","level3Icon":"fa fa-hand-o-right","showLevelIcon":true},"mode":"float","multipleH1":true,"pageTop":{"showLevelIcon":false,"mode":"float","pageTop":{"showLevelIcon":false,"level1Icon":"fa fa-hand-o-right","level2Icon":"fa fa-hand-o-right","level3Icon":"fa fa-hand-o-right"},"level1Icon":"","showLevel":true,"level2Icon":"","level3Icon":"","associatedWithSummary":true,"float":{"showLevelIcon":true,"level1Icon":"fa fa-hand-o-right","level2Icon":"fa fa-hand-o-right","level3Icon":"fa fa-hand-o-right"}},"printLog":false,"showGoTop":true,"showLevel":true},"github-buttons":{"repo":"hsz1273327/TutorialForGoLang","types":["star","watch","fork"],"size":"small"},"expandable-chapters-small":{},"advanced-emoji":{"embedEmojis":false},"sharing":{"weibo":false,"facebook":false,"twitter":false,"google":true,"instapaper":false,"vk":false,"all":["google"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"anchors":{}},"theme":"default","author":"hsz","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"Golang攻略","language":"zh-hans","links":{"sidebar":{"Home":"http://blog.hszofficial.site/"}},"gitbook":">=2.0.0","description":"Golang编程和主流使用场景介绍"},"file":{"path":"工具链/代码测试.md","mtime":"2019-07-18T13:09:59.805Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2019-07-18T14:22:41.112Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>
