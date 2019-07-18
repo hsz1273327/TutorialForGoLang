@@ -10,7 +10,7 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "gitbook": "^3.2.2",
+    "gitbook": "^3.2.0",
     "gitbook-cli": "^2.3.0"
   },
   "dependencies": {
@@ -21,7 +21,7 @@
     "gitbook-plugin-expandable-chapters-small": "^0.1.7",
     "gitbook-plugin-github": "^2.0.0",
     "gitbook-plugin-github-buttons": "^3.0.0",
-    "gitbook-plugin-katex": "^1.1.4",
+    "gitbook-plugin-mathjax": "^1.1.2",
     "gitbook-plugin-search-pro": "^2.0.2",
     "gitbook-plugin-sitemap-general": "^0.1.1",
     "gitbook-plugin-splitter": "0.0.8",
