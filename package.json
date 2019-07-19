@@ -10,8 +10,8 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "gitbook": "^3.2.2",
-    "gitbook-cli": "^2.3.0"
+    "gitbook": "^3.2.3",
+    "gitbook-cli": "^2.3.2"
   },
   "dependencies": {
     "gitbook-plugin-advanced-emoji": "^0.2.2",
