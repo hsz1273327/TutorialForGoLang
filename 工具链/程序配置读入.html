@@ -1,0 +1,575 @@
+
+<!DOCTYPE HTML>
+<html lang="zh-hans" >
+    <head>
+        <meta charset="UTF-8">
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <title>程序配置读入 · Golang攻略</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="description" content="">
+        <meta name="generator" content="GitBook 3.2.3">
+        <meta name="author" content="hsz">
+        
+        
+    
+    <link rel="stylesheet" href="../gitbook/style.css">
+
+    
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-search-pro/search.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-donate/plugin.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-anchors/plugin.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-anchor-navigation-ex/style/plugin.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-highlight/website.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-fontsettings/website.css">
+                
+            
+        
+
+    
+
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+        
+    
+    
+    
+    <meta name="HandheldFriendly" content="true"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="../gitbook/images/apple-touch-icon-precomposed-152.png">
+    <link rel="shortcut icon" href="../gitbook/images/favicon.ico" type="image/x-icon">
+
+    
+    <link rel="next" href="总结.html" />
+    
+    
+    <link rel="prev" href="性能基准测试.md" />
+    
+
+    <style>
+    @media only screen and (max-width: 640px) {
+        .book-header .hidden-mobile {
+            display: none;
+        }
+    }
+    </style>
+    <script>
+        window["gitbook-plugin-github-buttons"] = {"repo":"hsz1273327/TutorialForGoLang","types":["star","watch","fork"],"size":"small"};
+    </script>
+
+    </head>
+    <body>
+        
+<div class="book">
+    <div class="book-summary">
+        
+            
+<div id="book-search-input" role="search">
+    <input type="text" placeholder="输入并搜索" />
+</div>
+
+            
+                <nav role="navigation">
+                
+
+
+<ul class="summary">
+    
+    
+    
+        
+        <li>
+            <a href="http://blog.hszofficial.site/" target="_blank" class="custom-link">Home</a>
+        </li>
+    
+    
+
+    
+    <li class="divider"></li>
+    
+
+    
+        
+        
+    
+        <li class="chapter " data-level="1.1" data-path="../">
+            
+                <a href="../">
+            
+                    
+                    Introduction
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2" data-path="./">
+            
+                <a href="./">
+            
+                    
+                    工具链
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.2.1" data-path="go语言的编译器和编译环境搭建.html">
+            
+                <a href="go语言的编译器和编译环境搭建.html">
+            
+                    
+                    go语言的编译器和编译环境搭建
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.2" data-path="依赖控制.html">
+            
+                <a href="依赖控制.html">
+            
+                    
+                    依赖控制
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.3" data-path="log输出.html">
+            
+                <a href="log输出.html">
+            
+                    
+                    log输出
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.4" data-path="代码风格控制.html">
+            
+                <a href="代码风格控制.html">
+            
+                    
+                    代码风格控制
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.5" data-path="代码测试.html">
+            
+                <a href="代码测试.html">
+            
+                    
+                    代码测试
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.6" data-path="性能基准测试.md">
+            
+                <span>
+            
+                    
+                    性能基准测试
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter active" data-level="1.2.7" data-path="程序配置读入.html">
+            
+                <a href="程序配置读入.html">
+            
+                    
+                    程序配置读入
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.8" data-path="总结.html">
+            
+                <a href="总结.html">
+            
+                    
+                    总结
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3" data-path="../使用Golang搭建后端服务/">
+            
+                <a href="../使用Golang搭建后端服务/">
+            
+                    
+                    使用Golang搭建后端服务
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.3.1" data-path="../使用Golang搭建后端服务/RESTful接口服务.html">
+            
+                <a href="../使用Golang搭建后端服务/RESTful接口服务.html">
+            
+                    
+                    RESTful接口服务
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.2" data-path="../使用Golang搭建后端服务/GRpc接口服务.html">
+            
+                <a href="../使用Golang搭建后端服务/GRpc接口服务.html">
+            
+                    
+                    GRpc接口服务
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+    
+
+    <li class="divider"></li>
+
+    <li>
+        <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
+            本书使用 GitBook 发布
+        </a>
+    </li>
+</ul>
+
+
+                </nav>
+            
+        
+    </div>
+
+    <div class="book-body">
+        
+            <div class="body-inner">
+                
+                    
+
+<div class="book-header" role="navigation">
+    
+
+    <!-- Title -->
+    <h1>
+        <i class="fa fa-circle-o-notch fa-spin"></i>
+        <a href=".." >程序配置读入</a>
+    </h1>
+</div>
+
+
+
+
+                    <div class="page-wrapper" tabindex="-1" role="main">
+                        <div class="page-inner">
+                            
+<div id="book-search-results">
+    <div class="search-noresults">
+    
+                                <section class="normal markdown-section">
+                                
+                                <div id="anchor-navigation-ex-navbar"><i class="fa fa-navicon"></i><ul><li><span class="title-icon fa fa-hand-o-right"></span><a href="#&#x7A0B;&#x5E8F;&#x914D;&#x7F6E;&#x8BFB;&#x5165;"><b>1. </b>&#x7A0B;&#x5E8F;&#x914D;&#x7F6E;&#x8BFB;&#x5165;</a></li><ul><li><span class="title-icon fa fa-hand-o-right"></span><a href="#&#x52A0;&#x8F7D;&#x5916;&#x90E8;&#x6570;&#x636E;&#x4E3A;&#x914D;&#x7F6E;"><b>1.1. </b>&#x52A0;&#x8F7D;&#x5916;&#x90E8;&#x6570;&#x636E;&#x4E3A;&#x914D;&#x7F6E;</a></li><ul><li><span class="title-icon fa fa-hand-o-right"></span><a href="#&#x52A0;&#x8F7D;&#x9ED8;&#x8BA4;&#x914D;&#x7F6E;"><b>1.1.1. </b>&#x52A0;&#x8F7D;&#x9ED8;&#x8BA4;&#x914D;&#x7F6E;</a></li><li><span class="title-icon fa fa-hand-o-right"></span><a href="#&#x52A0;&#x8F7D;&#x9ED8;&#x8BA4;&#x4F4D;&#x7F6E;&#x6587;&#x4EF6;&#x4E2D;&#x7684;&#x914D;&#x7F6E;"><b>1.1.2. </b>&#x52A0;&#x8F7D;&#x9ED8;&#x8BA4;&#x4F4D;&#x7F6E;&#x6587;&#x4EF6;&#x4E2D;&#x7684;&#x914D;&#x7F6E;</a></li><li><span class="title-icon fa fa-hand-o-right"></span><a href="#&#x52A0;&#x8F7D;&#x73AF;&#x5883;&#x53D8;&#x91CF;&#x4E2D;&#x7684;&#x914D;&#x7F6E;"><b>1.1.3. </b>&#x52A0;&#x8F7D;&#x73AF;&#x5883;&#x53D8;&#x91CF;&#x4E2D;&#x7684;&#x914D;&#x7F6E;</a></li><li><span class="title-icon fa fa-hand-o-right"></span><a href="#&#x52A0;&#x8F7D;&#x547D;&#x4EE4;&#x884C;&#x6307;&#x5B9A;&#x7684;&#x914D;&#x7F6E;"><b>1.1.4. </b>&#x52A0;&#x8F7D;&#x547D;&#x4EE4;&#x884C;&#x6307;&#x5B9A;&#x7684;&#x914D;&#x7F6E;</a></li></ul><li><span class="title-icon fa fa-hand-o-right"></span><a href="#&#x9A8C;&#x8BC1;&#x914D;&#x7F6E;"><b>1.2. </b>&#x9A8C;&#x8BC1;&#x914D;&#x7F6E;</a></li></ul></ul></div><a href="#&#x7A0B;&#x5E8F;&#x914D;&#x7F6E;&#x8BFB;&#x5165;" id="anchorNavigationExGoTop"><i class="fa fa-arrow-up"></i></a><h1 id="&#x7A0B;&#x5E8F;&#x914D;&#x7F6E;&#x8BFB;&#x5165;"><a name="&#x7A0B;&#x5E8F;&#x914D;&#x7F6E;&#x8BFB;&#x5165;" class="anchor-navigation-ex-anchor" href="#&#x7A0B;&#x5E8F;&#x914D;&#x7F6E;&#x8BFB;&#x5165;"><i class="fa fa-link" aria-hidden="true"></i></a>1. &#x7A0B;&#x5E8F;&#x914D;&#x7F6E;&#x8BFB;&#x5165;</h1>
+<p>go&#x8BED;&#x8A00;&#x7684;&#x4E3B;&#x8981;&#x5E94;&#x7528;&#x573A;&#x666F;&#x662F;&#x5199;&#x670D;&#x52A1;&#x548C;&#x4E2D;&#x95F4;&#x4EF6;,&#x8FD9;&#x4E9B;&#x7A0B;&#x5E8F;&#x901A;&#x5E38;&#x90FD;&#x662F;&#x7531;&#x4E00;&#x4E2A;&#x547D;&#x4EE4;&#x884C;&#x7684;&#x547D;&#x4EE4;&#x542F;&#x52A8;,&#x7136;&#x540E;&#x901A;&#x8FC7;&#x6307;&#x5B9A;&#x53C2;&#x6570;&#x6216;&#x8BFB;&#x5165;&#x914D;&#x7F6E;&#x6587;&#x4EF6;&#x6216;&#x73AF;&#x5883;&#x53D8;&#x91CF;&#x52A0;&#x8F7D;&#x542F;&#x52A8;&#x914D;&#x7F6E;,&#x7136;&#x540E;&#x518D;&#x63D0;&#x4F9B;&#x670D;&#x52A1;.&#x56E0;&#x6B64;&#x8BFB;&#x5165;&#x914D;&#x7F6E;&#x662F;&#x5199;go&#x7A0B;&#x5E8F;&#x7684;&#x7B2C;&#x4E00;&#x6B65;.</p>
+<p>&#x901A;&#x5E38;&#x6211;&#x4EEC;&#x8BFB;&#x7A0B;&#x5E8F;&#x914D;&#x7F6E;&#x6709;&#x4E24;&#x4E2A;&#x6B65;&#x9AA4;:</p>
+<ol>
+<li>&#x52A0;&#x8F7D;&#x5916;&#x90E8;&#x6570;&#x636E;&#x4E3A;&#x914D;&#x7F6E;</li>
+<li>&#x9A8C;&#x8BC1;&#x914D;&#x7F6E;&#x7B26;&#x5408;&#x9884;&#x8BA1;&#x7684;&#x8981;&#x6C42;</li>
+</ol>
+<p>&#x8FD9;&#x7BC7;&#x7684;&#x4F8B;&#x5B50;&#x5728;<a href="">testconfigload</a></p>
+<h2 id="&#x52A0;&#x8F7D;&#x5916;&#x90E8;&#x6570;&#x636E;&#x4E3A;&#x914D;&#x7F6E;"><a name="&#x52A0;&#x8F7D;&#x5916;&#x90E8;&#x6570;&#x636E;&#x4E3A;&#x914D;&#x7F6E;" class="anchor-navigation-ex-anchor" href="#&#x52A0;&#x8F7D;&#x5916;&#x90E8;&#x6570;&#x636E;&#x4E3A;&#x914D;&#x7F6E;"><i class="fa fa-link" aria-hidden="true"></i></a>1.1. &#x52A0;&#x8F7D;&#x5916;&#x90E8;&#x6570;&#x636E;&#x4E3A;&#x914D;&#x7F6E;</h2>
+<p>&#x6211;&#x4EEC;&#x52A0;&#x8F7D;&#x5916;&#x90E8;&#x6570;&#x636E;&#x6765;&#x6E90;&#x4E00;&#x822C;&#x6709;&#x5982;&#x4E0B;&#x51E0;&#x4E2A;,&#x4ED6;&#x4EEC;&#x6309;&#x987A;&#x5E8F;&#x52A0;&#x8F7D;&#x901A;&#x5E38;&#x662F;&#x5982;&#x4E0B;&#x987A;&#x5E8F;:</p>
+<ol>
+<li>&#x547D;&#x4EE4;&#x884C;&#x53C2;&#x6570;</li>
+<li>&#x547D;&#x4EE4;&#x884C;&#x6307;&#x5B9A;&#x7684;&#x914D;&#x7F6E;&#x6587;&#x4EF6;</li>
+<li>&#x6307;&#x5B9A;&#x73AF;&#x5883;&#x53D8;&#x91CF;&#x4E2D;&#x7684;&#x914D;&#x7F6E;&#x53C2;&#x6570;</li>
+<li>&#x9ED8;&#x8BA4;&#x914D;&#x7F6E;&#x6587;&#x4EF6;&#x4F4D;&#x7F6E;&#x4E0B;&#x7684;&#x914D;&#x7F6E;&#x6587;&#x4EF6;</li>
+<li>&#x9ED8;&#x8BA4;&#x7684;&#x914D;&#x7F6E;&#x503C;</li>
+</ol>
+<p>&#x8D8A;&#x5728;&#x524D;&#x9762;&#x7684;&#x8D8A;&#x4F1A;&#x4F18;&#x5148;&#x8986;&#x76D6;,&#x56E0;&#x6B64;&#x6211;&#x4EEC;&#x901A;&#x5E38;&#x662F;&#x5148;&#x52A0;&#x8F7D;&#x540E;&#x9762;&#x7684;&#x7136;&#x540E;&#x7528;&#x524D;&#x9762;&#x7684;&#x4E00;&#x7EA7;&#x4E00;&#x7EA7;&#x7684;&#x8986;&#x76D6;.&#x6211;&#x4EEC;&#x53EF;&#x4EE5;&#x4F7F;&#x7528;&#x5E93;<a href="https://github.com/spf13/viper" target="_blank">github.com/spf13/viper</a></p>
+<pre><code class="lang-golang">...
+ConfigViper := viper.New()
+InitDefaultConfig(ConfigViper)
+InitFileConfig(ConfigViper)
+InitEnvConfig(ConfigViper)
+InitFlagConfig(ConfigViper)
+...
+</code></pre>
+<h3 id="&#x52A0;&#x8F7D;&#x9ED8;&#x8BA4;&#x914D;&#x7F6E;"><a name="&#x52A0;&#x8F7D;&#x9ED8;&#x8BA4;&#x914D;&#x7F6E;" class="anchor-navigation-ex-anchor" href="#&#x52A0;&#x8F7D;&#x9ED8;&#x8BA4;&#x914D;&#x7F6E;"><i class="fa fa-link" aria-hidden="true"></i></a>1.1.1. &#x52A0;&#x8F7D;&#x9ED8;&#x8BA4;&#x914D;&#x7F6E;</h3>
+<pre><code class="lang-golang"><span class="hljs-keyword">func</span> InitDefaultConfig(ConfigViper *viper.Viper) {
+    ConfigViper.SetDefault(<span class="hljs-string">&quot;Num&quot;</span>, <span class="hljs-number">2</span>)
+}
+</code></pre>
+<h3 id="&#x52A0;&#x8F7D;&#x9ED8;&#x8BA4;&#x4F4D;&#x7F6E;&#x6587;&#x4EF6;&#x4E2D;&#x7684;&#x914D;&#x7F6E;"><a name="&#x52A0;&#x8F7D;&#x9ED8;&#x8BA4;&#x4F4D;&#x7F6E;&#x6587;&#x4EF6;&#x4E2D;&#x7684;&#x914D;&#x7F6E;" class="anchor-navigation-ex-anchor" href="#&#x52A0;&#x8F7D;&#x9ED8;&#x8BA4;&#x4F4D;&#x7F6E;&#x6587;&#x4EF6;&#x4E2D;&#x7684;&#x914D;&#x7F6E;"><i class="fa fa-link" aria-hidden="true"></i></a>1.1.2. &#x52A0;&#x8F7D;&#x9ED8;&#x8BA4;&#x4F4D;&#x7F6E;&#x6587;&#x4EF6;&#x4E2D;&#x7684;&#x914D;&#x7F6E;</h3>
+<pre><code class="lang-golang"><span class="hljs-keyword">func</span> SetFileConfig(ConfigViper *viper.Viper, file_name <span class="hljs-keyword">string</span>, filePaths []<span class="hljs-keyword">string</span>) {
+    FileConfigViper := viper.New()
+    FileConfigViper.SetConfigName(file_name)
+    <span class="hljs-keyword">for</span> _, file_path := <span class="hljs-keyword">range</span> filePaths {
+        FileConfigViper.AddConfigPath(file_path)
+    }
+    err := FileConfigViper.ReadInConfig() <span class="hljs-comment">// Find and read the config file</span>
+    <span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> {                       <span class="hljs-comment">// Handle errors reading the config file</span>
+        logger.Logger.Info(<span class="hljs-string">&quot;config file not found: %s \n&quot;</span>, err)
+    } <span class="hljs-keyword">else</span> {
+        logger.Logger.Info(<span class="hljs-string">&quot;Num in file is %d \n&quot;</span>, FileConfigViper.Get(<span class="hljs-string">&quot;Num&quot;</span>))
+        ConfigViper.Set(<span class="hljs-string">&quot;Num&quot;</span>, FileConfigViper.Get(<span class="hljs-string">&quot;Num&quot;</span>))
+        logger.Logger.Info(ConfigViper.Get(<span class="hljs-string">&quot;Num&quot;</span>))
+    }
+}
+
+<span class="hljs-keyword">func</span> InitFileConfig(ConfigViper *viper.Viper) {
+    file_name := <span class="hljs-string">&quot;config&quot;</span>
+    filePaths := []<span class="hljs-keyword">string</span>{<span class="hljs-string">&quot;/etc/appname/&quot;</span>, <span class="hljs-string">&quot;$HOME/.appname&quot;</span>, <span class="hljs-string">&quot;.&quot;</span>}
+    SetFileConfig(ConfigViper, file_name, filePaths)
+}
+</code></pre>
+<p>&#x52A0;&#x8F7D;&#x9ED8;&#x8BA4;&#x4F4D;&#x7F6E;&#x7684;&#x914D;&#x7F6E;&#x9700;&#x8981;&#x6307;&#x5B9A;&#x6587;&#x4EF6;&#x540D;(&#x4E0D;&#x5305;&#x542B;&#x6269;&#x5C55;&#x540D;)&#x548C;&#x6587;&#x4EF6;&#x6240;&#x5728;&#x7684;&#x76EE;&#x5F55;,&#x53EF;&#x4EE5;&#x4E00;&#x6B21;&#x52A0;&#x5165;&#x591A;&#x4E2A;&#x76EE;&#x5F55;,&#x5B83;&#x4F1A;&#x6309;&#x7167;&#x987A;&#x5E8F;&#x67E5;&#x627E;&#x6267;&#x884C;.&#x8FD9;&#x4E2A;&#x5305;&#x652F;&#x6301;&#x7684;&#x914D;&#x7F6E;&#x683C;&#x5F0F;&#x6709;:</p>
+<ul>
+<li>JSON</li>
+<li>TOML</li>
+<li>YAML</li>
+<li>HCL</li>
+<li>envfile</li>
+</ul>
+<p>&#x901A;&#x5E38;&#x6211;&#x4EEC;&#x4F7F;&#x7528;JSON&#x6216;&#x8005;YAML&#x5C45;&#x591A;.</p>
+<h3 id="&#x52A0;&#x8F7D;&#x73AF;&#x5883;&#x53D8;&#x91CF;&#x4E2D;&#x7684;&#x914D;&#x7F6E;"><a name="&#x52A0;&#x8F7D;&#x73AF;&#x5883;&#x53D8;&#x91CF;&#x4E2D;&#x7684;&#x914D;&#x7F6E;" class="anchor-navigation-ex-anchor" href="#&#x52A0;&#x8F7D;&#x73AF;&#x5883;&#x53D8;&#x91CF;&#x4E2D;&#x7684;&#x914D;&#x7F6E;"><i class="fa fa-link" aria-hidden="true"></i></a>1.1.3. &#x52A0;&#x8F7D;&#x73AF;&#x5883;&#x53D8;&#x91CF;&#x4E2D;&#x7684;&#x914D;&#x7F6E;</h3>
+<pre><code class="lang-golang"><span class="hljs-keyword">func</span> InitEnvConfig(ConfigViper *viper.Viper) {
+    EnvConfigViper := viper.New()
+    EnvConfigViper.SetEnvPrefix(<span class="hljs-string">&quot;calcul&quot;</span>) <span class="hljs-comment">// will be uppercased automatically</span>
+    EnvConfigViper.BindEnv(<span class="hljs-string">&quot;num&quot;</span>)
+    <span class="hljs-keyword">if</span> EnvConfigViper.Get(<span class="hljs-string">&quot;num&quot;</span>) != <span class="hljs-literal">nil</span> {
+        ConfigViper.Set(<span class="hljs-string">&quot;Num&quot;</span>, EnvConfigViper.Get(<span class="hljs-string">&quot;num&quot;</span>))
+    }
+}
+</code></pre>
+<p>&#x53EF;&#x4EE5;&#x4E3A;&#x73AF;&#x5883;&#x53D8;&#x91CF;&#x7684;&#x53C2;&#x6570;&#x8BBE;&#x7F6E;&#x524D;&#x7F00;,&#x8FD9;&#x6837;&#x53EF;&#x4EE5;&#x7528;&#x4E8E;&#x533A;&#x5206;&#x4E0D;&#x540C;&#x7684;&#x5E94;&#x7528;,&#x9700;&#x8981;&#x6CE8;&#x610F;&#x73AF;&#x5883;&#x53D8;&#x91CF;&#x5B57;&#x7B26;&#x4E32;&#x90FD;&#x662F;&#x5927;&#x5199;.</p>
+<h3 id="&#x52A0;&#x8F7D;&#x547D;&#x4EE4;&#x884C;&#x6307;&#x5B9A;&#x7684;&#x914D;&#x7F6E;"><a name="&#x52A0;&#x8F7D;&#x547D;&#x4EE4;&#x884C;&#x6307;&#x5B9A;&#x7684;&#x914D;&#x7F6E;" class="anchor-navigation-ex-anchor" href="#&#x52A0;&#x8F7D;&#x547D;&#x4EE4;&#x884C;&#x6307;&#x5B9A;&#x7684;&#x914D;&#x7F6E;"><i class="fa fa-link" aria-hidden="true"></i></a>1.1.4. &#x52A0;&#x8F7D;&#x547D;&#x4EE4;&#x884C;&#x6307;&#x5B9A;&#x7684;&#x914D;&#x7F6E;</h3>
+<pre><code class="lang-golang"><span class="hljs-keyword">func</span> InitFlagConfig(ConfigViper *viper.Viper) {
+    num := pflag.IntP(<span class="hljs-string">&quot;num&quot;</span>, <span class="hljs-string">&quot;n&quot;</span>, <span class="hljs-number">0</span>, <span class="hljs-string">&quot;&#x8981;&#x8BA1;&#x7B97;&#x5E73;&#x65B9;&#x7684;&#x503C;&quot;</span>)
+    confPath := pflag.StringP(<span class="hljs-string">&quot;config&quot;</span>, <span class="hljs-string">&quot;c&quot;</span>, <span class="hljs-string">&quot;&quot;</span>, <span class="hljs-string">&quot;&#x914D;&#x7F6E;&#x6587;&#x4EF6;&#x4F4D;&#x7F6E;&quot;</span>)
+    pflag.Parse()
+    <span class="hljs-keyword">if</span> *confPath != <span class="hljs-string">&quot;&quot;</span> {
+        p, err := pathlib.New(*confPath).Absolute()
+        <span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> {
+            logger.Logger.Info(<span class="hljs-string">&quot;&#x6307;&#x5B9A;&#x7684;&#x914D;&#x7F6E;&#x6587;&#x4EF6;&#x83B7;&#x53D6;&#x7EDD;&#x5BF9;&#x4F4D;&#x7F6E;&#x5931;&#x8D25;&quot;</span>)
+        } <span class="hljs-keyword">else</span> {
+            <span class="hljs-keyword">if</span> p.Exists() &amp;&amp; p.IsFile() {
+                filenameWithSuffix := path.Base(*confPath)
+                fileSuffix := path.Ext(filenameWithSuffix)
+                file_name := strings.TrimSuffix(filenameWithSuffix, fileSuffix)
+                dir, err := p.Parent()
+                <span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> {
+                    logger.Logger.Info(<span class="hljs-string">&quot;&#x6307;&#x5B9A;&#x7684;&#x914D;&#x7F6E;&#x6587;&#x4EF6;&#x83B7;&#x53D6;&#x7236;&#x6587;&#x4EF6;&#x5939;&#x4F4D;&#x7F6E;&#x5931;&#x8D25;&quot;</span>)
+                } <span class="hljs-keyword">else</span> {
+                    filePaths := []<span class="hljs-keyword">string</span>{dir.Path}
+                    SetFileConfig(ConfigViper, file_name, filePaths)
+                }
+
+            }
+        }
+    }
+    <span class="hljs-keyword">if</span> *num != <span class="hljs-number">0</span> {
+        ConfigViper.Set(<span class="hljs-string">&quot;Num&quot;</span>, *num) <span class="hljs-comment">// same result as next line</span>
+    }
+}
+</code></pre>
+<p>&#x76F8;&#x5BF9;&#x6765;&#x8BF4;&#x547D;&#x4EE4;&#x884C;&#x52A0;&#x8F7D;&#x914D;&#x7F6E;&#x4F1A;&#x7565;&#x5FAE;&#x590D;&#x6742;&#x4E00;&#x4E9B;,&#x6211;&#x4EEC;&#x9700;&#x8981;&#x4F7F;&#x7528;<a href="https://github.com/spf13/pflag" target="_blank">github.com/spf13/pflag</a>&#x6765;&#x914D;&#x7F6E;&#x547D;&#x4EE4;&#x884C;&#x53C2;&#x6570;,&#x7136;&#x540E;&#x6839;&#x636E;&#x9700;&#x8981;&#x4E00;&#x6761;&#x4E00;&#x6761;&#x7684;&#x52A0;&#x8F7D;&#x5230;&#x914D;&#x7F6E;&#x4E2D;.</p>
+<p>&#x901A;&#x5E38;<code>-c</code>&#x662F;&#x7528;&#x4E8E;&#x6307;&#x5B9A;&#x914D;&#x7F6E;&#x6587;&#x4EF6;&#x8DEF;&#x5F84;&#x7684;,&#x8FD9;&#x5C31;&#x9700;&#x8981;&#x6211;&#x4EEC;&#x53EF;&#x4EE5;&#x5224;&#x65AD;&#x8DEF;&#x5F84;&#x662F;&#x5426;&#x5B58;&#x5728;,&#x662F;&#x5426;&#x662F;&#x6587;&#x4EF6;.&#x8FD9;&#x53EF;&#x4EE5;&#x4F7F;&#x7528;<a href="https://github.com/small-tk/pathlib" target="_blank">github.com/small-tk/pathlib</a>&#x5305;&#x6765;&#x505A;,&#x8FD9;&#x4E2A;&#x5305;&#x7684;&#x63A5;&#x53E3;&#x7C7B;&#x4F3C;python&#x7684;pathlib,&#x6BD4;&#x8F83;&#x53CB;&#x597D;,&#x7136;&#x540E;&#x590D;&#x7528;&#x4E0A;&#x9762;&#x52A0;&#x8F7D;&#x9ED8;&#x8BA4;&#x4F4D;&#x7F6E;&#x914D;&#x7F6E;&#x6587;&#x4EF6;&#x7684;&#x65B9;&#x6CD5;<code>SetFileConfig</code>&#x6765;&#x52A0;&#x8F7D;&#x914D;&#x7F6E;.&#x6CE8;&#x610F;&#x6587;&#x4EF6;&#x540D;&#x4E0D;&#x80FD;&#x5E26;&#x540E;&#x7F00;.</p>
+<h2 id="&#x9A8C;&#x8BC1;&#x914D;&#x7F6E;"><a name="&#x9A8C;&#x8BC1;&#x914D;&#x7F6E;" class="anchor-navigation-ex-anchor" href="#&#x9A8C;&#x8BC1;&#x914D;&#x7F6E;"><i class="fa fa-link" aria-hidden="true"></i></a>1.2. &#x9A8C;&#x8BC1;&#x914D;&#x7F6E;</h2>
+<p>&#x6211;&#x4EEC;&#x53EF;&#x4EE5;&#x4F7F;&#x7528;<a href="https://github.com/xeipuuv/gojsonschema" target="_blank">github.com/xeipuuv/gojsonschema</a>&#x501F;&#x52A9;jsonschema&#x6765;&#x505A;&#x9A8C;&#x8BC1;&#x914D;&#x7F6E;,&#x901A;&#x5E38;&#x56E0;&#x4E3A;&#x6211;&#x4EEC;&#x7684;&#x914D;&#x7F6E;&#x6700;&#x7EC8;&#x4F1A;&#x88AB;&#x8F6C;&#x6210;&#x4E00;&#x4E2A;struct&#x7684;&#x5B9E;&#x4F8B;,&#x56E0;&#x6B64;&#x5B57;&#x6BB5;&#x662F;&#x56FA;&#x5B9A;&#x7684;,&#x4F46;&#x91CC;&#x9762;&#x7684;&#x503C;&#x8FD8;&#x662F;&#x9700;&#x8981;&#x68C0;&#x67E5;&#x8303;&#x56F4;&#x7684;.</p>
+<pre><code class="lang-golang"><span class="hljs-keyword">const</span> schema = <span class="hljs-string">`{
+  &quot;description&quot;: &quot;number&quot;,
+  &quot;type&quot;: &quot;object&quot;,
+  &quot;required&quot;: [ &quot;Num&quot;],
+  &quot;additionalProperties&quot;: false,
+  &quot;properties&quot;: {
+    &quot;Num&quot;: {
+      &quot;type&quot;: &quot;integer&quot;,
+      &quot;minimum&quot;: 1,
+      &quot;description&quot;: &quot;params&quot;
+    }
+}
+}`</span>
+
+<span class="hljs-keyword">func</span> VerifyConfig(conf config) <span class="hljs-keyword">bool</span> {
+    configLoader := gojsonschema.NewGoLoader(conf)
+    schemaLoader := gojsonschema.NewStringLoader(schema)
+    result, err := gojsonschema.Validate(schemaLoader, configLoader)
+    <span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> {
+        logger.Logger.Error(<span class="hljs-string">&quot;Validate error: %s&quot;</span>, err)
+        <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>
+    } <span class="hljs-keyword">else</span> {
+        <span class="hljs-keyword">if</span> result.Valid() {
+            logger.Logger.Info(<span class="hljs-string">&quot;The document is valid&quot;</span>)
+            <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>
+        } <span class="hljs-keyword">else</span> {
+            logger.Logger.Info(<span class="hljs-string">&quot;The document is not valid. see errors :\n&quot;</span>)
+            <span class="hljs-keyword">for</span> _, err := <span class="hljs-keyword">range</span> result.Errors() {
+                <span class="hljs-comment">// Err implements the ResultError interface</span>
+                logger.Logger.Error(<span class="hljs-string">&quot;- %s&quot;</span>, err)
+            }
+            <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>
+        }
+    }
+}
+</code></pre>
+<p>&#x8981;&#x68C0;&#x67E5;&#x662F;&#x5426;&#x7B26;&#x5408;&#x9700;&#x8981;&#x52A0;&#x8F7D;&#x914D;&#x7F6E;&#x548C;&#x9A8C;&#x8BC1;&#x914D;&#x7F6E;&#x7684;&#x914D;&#x7F6E;.&#x9A8C;&#x8BC1;&#x914D;&#x7F6E;&#x7684;&#x914D;&#x7F6E;&#x6211;&#x4EEC;&#x4F7F;&#x7528;<a href="http://json-schema.org/" target="_blank">jsonschema</a>&#x6765;&#x63CF;&#x8FF0;&#x5373;&#x53EF;</p>
+
+                                
+                                </section>
+                            
+    </div>
+    <div class="search-results">
+        <div class="has-results">
+            
+            <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+            <ul class="search-results-list"></ul>
+            
+        </div>
+        <div class="no-results">
+            
+            <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+            
+        </div>
+    </div>
+</div>
+
+                        </div>
+                    </div>
+                
+            </div>
+
+            
+                
+                <a href="性能基准测试.md" class="navigation navigation-prev " aria-label="Previous page: 性能基准测试">
+                    <i class="fa fa-angle-left"></i>
+                </a>
+                
+                
+                <a href="总结.html" class="navigation navigation-next " aria-label="Next page: 总结">
+                    <i class="fa fa-angle-right"></i>
+                </a>
+                
+            
+        
+    </div>
+
+    <script>
+        var gitbook = gitbook || [];
+        gitbook.push(function() {
+            gitbook.page.hasChanged({"page":{"title":"程序配置读入","level":"1.2.7","depth":2,"next":{"title":"总结","level":"1.2.8","depth":2,"path":"工具链/总结.md","ref":"工具链/总结.md","articles":[]},"previous":{"title":"性能基准测试","level":"1.2.6","depth":2,"path":"工具链/性能基准测试.md","ref":"工具链/性能基准测试.md","articles":[]},"dir":"ltr"},"config":{"plugins":["-lunr","-search","-sharing","search-pro","github","github-buttons","donate","sitemap-general","anchors","anchor-navigation-ex"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"tbfed-pagefooter":{"copyright":"Copyright &copy hsz 2019","modify_label":"该文件修订时间：","modify_format":"YYYY-MM-DD HH:mm:ss"},"github":{"url":"http://hsz1273327/TutorialForGoLang"},"search-pro":{"cutWordLib":"nodejieba","defineWord":["Gitbook Use"]},"donate":{"title":"","button":"赏","wechat":"http://blog.hszofficial.site/img/wechat_donate.jpg","alipay":"http://blog.hszofficial.site/img/zhifubao_donate.jpg","wechatText":"微信打赏","alipayText":"支付宝打赏"},"sitemap-general":{"prefix":"http://blog.hszofficial.site/TutorialForGoLang/"},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"anchor-navigation-ex":{"showLevel":true,"associatedWithSummary":true,"mode":"float","showGoTop":true,"printLog":false,"multipleH1":true,"float":{"floatIcon":"fa fa-navicon","showLevelIcon":true,"level1Icon":"fa fa-hand-o-right","level2Icon":"fa fa-hand-o-right","level3Icon":"fa fa-hand-o-right"},"pageTop":{"showLevelIcon":false,"mode":"float","pageTop":{"showLevelIcon":false,"level1Icon":"fa fa-hand-o-right","level2Icon":"fa fa-hand-o-right","level3Icon":"fa fa-hand-o-right"},"level1Icon":"","showLevel":true,"level2Icon":"","level3Icon":"","associatedWithSummary":true,"float":{"showLevelIcon":true,"level1Icon":"fa fa-hand-o-right","level2Icon":"fa fa-hand-o-right","level3Icon":"fa fa-hand-o-right"}}},"github-buttons":{"repo":"hsz1273327/TutorialForGoLang","types":["star","watch","fork"],"size":"small"},"sharing":{"weibo":false,"facebook":false,"twitter":false,"google":true,"instapaper":false,"vk":false,"all":["google"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"anchors":{}},"theme":"default","author":"hsz","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"Golang攻略","language":"zh-hans","links":{"sidebar":{"Home":"http://blog.hszofficial.site/"}},"gitbook":"^3.2.3","description":"Golang编程和主流使用场景介绍"},"file":{"path":"工具链/程序配置读入.md","mtime":"2019-07-26T00:53:19.626Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2019-07-26T00:55:22.606Z"},"basePath":"..","book":{"language":""}});
+        });
+    </script>
+</div>
+
+        
+    <script src="../gitbook/gitbook.js"></script>
+    <script src="../gitbook/theme.js"></script>
+    
+        
+        <script src="../gitbook/gitbook-plugin-search-pro/jquery.mark.min.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-search-pro/search.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-github/plugin.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-github-buttons/plugin.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-donate/plugin.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-fontsettings/fontsettings.js"></script>
+        
+    
+
+    </body>
+</html>
+
