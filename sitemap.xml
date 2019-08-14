@@ -13,4 +13,5 @@
 <url> <loc>http://blog.hszofficial.site/TutorialForGoLang/使用Golang搭建后端服务/RESTful接口服务.html</loc> <changefreq>weekly</changefreq> <priority>0.5</priority> </url>
 <url> <loc>http://blog.hszofficial.site/TutorialForGoLang/使用Golang搭建后端服务/GRpc接口服务.html</loc> <changefreq>weekly</changefreq> <priority>0.5</priority> </url>
 <url> <loc>http://blog.hszofficial.site/TutorialForGoLang/使用Golang搭建后端服务/Websocket接口服务.html</loc> <changefreq>weekly</changefreq> <priority>0.5</priority> </url>
+<url> <loc>http://blog.hszofficial.site/TutorialForGoLang/使用Golang搭建后端服务/使用golang连接常用的数据库和消息中间件.html</loc> <changefreq>weekly</changefreq> <priority>0.5</priority> </url>
 </urlset>
