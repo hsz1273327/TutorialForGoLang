@@ -4,7 +4,7 @@ Go有很多优秀的http服务框架,目前用的最广的是[Gin](https://githu
 
 
 
-先来一个[helloworld](https://github.com/tutorialforgolang/go-server/tree/master/code/RESTful%E6%8E%A5%E5%8F%A3%E6%9C%8D%E5%8A%A1/c0)简单了解下通常go语言项目的结构和gin的基本用法
+先来一个[helloworld](https://github.com/hsz1273327/TutorialForGoLang/tree/master/src/%E4%BD%BF%E7%94%A8Golang%E6%90%AD%E5%BB%BA%E5%90%8E%E7%AB%AF%E6%9C%8D%E5%8A%A1/code/RESTful%E6%8E%A5%E5%8F%A3%E6%9C%8D%E5%8A%A1/c0)简单了解下通常go语言项目的结构和gin的基本用法
 
 ## helloworld
 
@@ -75,7 +75,7 @@ server: helloworld.go
 
 ## 为gin写一个插件
 
-Gin的结构类似[koa](https://tutorialforjavascript.github.io/%E4%BD%BF%E7%94%A8Javascript%E6%90%AD%E5%BB%BA%E5%90%8E%E7%AB%AF%E6%9C%8D%E5%8A%A1/RESTful%E6%8E%A5%E5%8F%A3%E6%9C%8D%E5%8A%A1.html#koa%E7%9A%84%E5%8E%9F%E7%90%86)也是洋葱皮结构,它使用`ctx.Next()`来区分请求和响应,一个典型的的插件如下[c1](https://github.com/tutorialforgolang/go-server/tree/master/code/RESTful%E6%8E%A5%E5%8F%A3%E6%9C%8D%E5%8A%A1/c1)
+Gin的结构类似[koa](https://tutorialforjavascript.github.io/%E4%BD%BF%E7%94%A8Javascript%E6%90%AD%E5%BB%BA%E5%90%8E%E7%AB%AF%E6%9C%8D%E5%8A%A1/RESTful%E6%8E%A5%E5%8F%A3%E6%9C%8D%E5%8A%A1.html#koa%E7%9A%84%E5%8E%9F%E7%90%86)也是洋葱皮结构,它使用`ctx.Next()`来区分请求和响应,一个典型的的插件如下[c1](https://github.com/hsz1273327/TutorialForGoLang/tree/master/src/%E4%BD%BF%E7%94%A8Golang%E6%90%AD%E5%BB%BA%E5%90%8E%E7%AB%AF%E6%9C%8D%E5%8A%A1/code/RESTful%E6%8E%A5%E5%8F%A3%E6%9C%8D%E5%8A%A1/c1)
 
 这个插件的作用是给所有的response的headers体内加上`author:hsz`
 
@@ -138,7 +138,7 @@ func main() {
 
 ## 路由组
 
-gin对路由分组的支持是原生的并不需要插件,这就方便我们基于资源划分模块构建RESTful接口了,下面[C2](https://github.com/tutorialforgolang/go-server/tree/master/code/RESTful%E6%8E%A5%E5%8F%A3%E6%9C%8D%E5%8A%A1/c2)是一个典型的RESTful接口,用于描述用户.
+gin对路由分组的支持是原生的并不需要插件,这就方便我们基于资源划分模块构建RESTful接口了,下面[C2](https://github.com/hsz1273327/TutorialForGoLang/tree/master/src/%E4%BD%BF%E7%94%A8Golang%E6%90%AD%E5%BB%BA%E5%90%8E%E7%AB%AF%E6%9C%8D%E5%8A%A1/code/RESTful%E6%8E%A5%E5%8F%A3%E6%9C%8D%E5%8A%A1/c2)是一个典型的RESTful接口,用于描述用户.
 
 + 路由
 

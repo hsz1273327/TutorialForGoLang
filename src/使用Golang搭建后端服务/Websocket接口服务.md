@@ -2,7 +2,7 @@
 
 Golang可以使用[gorilla/websocket](https://github.com/gorilla/websocket)这个框架来实现websocket接口的构造.这个框架可以用于写客户端和服务器.
 
-我们依然从一个[helloworld](https://github.com/tutorialforgolang/go-server/tree/master/code/Websocket%E6%8E%A5%E5%8F%A3%E6%9C%8D%E5%8A%A1/c0)开始.这个例子我们在客户端连同服务端后立即发送一个helloworld消息给后端服务器,服务器接到后则返回一个helloworld消息给客户端.
+我们依然从一个[helloworld](https://github.com/hsz1273327/TutorialForGoLang/tree/master/src/%E4%BD%BF%E7%94%A8Golang%E6%90%AD%E5%BB%BA%E5%90%8E%E7%AB%AF%E6%9C%8D%E5%8A%A1/code/Websocket%E6%8E%A5%E5%8F%A3%E6%9C%8D%E5%8A%A1/c0)开始.这个例子我们在客户端连同服务端后立即发送一个helloworld消息给后端服务器,服务器接到后则返回一个helloworld消息给客户端.
 客户端在接收到服务器消息后发送一个close消息给服务器,服务器就断开和客户端的连接.
 
 + 服务端
@@ -222,7 +222,7 @@ func main() {
 
 ## Json数据传输
 
-一种更常见的形式是使用结构化数据格式表示一个事件,客户端服务器按事件的不同来进行不同的处理.例子[c1](https://github.com/tutorialforgolang/go-server/tree/master/code/Websocket%E6%8E%A5%E5%8F%A3%E6%9C%8D%E5%8A%A1/c1)就是这个helloworld的改进.顺便我们也把这个代码拆分一下让它更加便于管理.
+一种更常见的形式是使用结构化数据格式表示一个事件,客户端服务器按事件的不同来进行不同的处理.例子[c1](https://github.com/hsz1273327/TutorialForGoLang/tree/master/src/%E4%BD%BF%E7%94%A8Golang%E6%90%AD%E5%BB%BA%E5%90%8E%E7%AB%AF%E6%9C%8D%E5%8A%A1/code/Websocket%E6%8E%A5%E5%8F%A3%E6%9C%8D%E5%8A%A1/c1)就是这个helloworld的改进.顺便我们也把这个代码拆分一下让它更加便于管理.
 
 这个项目被拆分成了如下几个子模块
 
@@ -263,7 +263,7 @@ err = ws.WriteJSON(message)
 
 广播就是向符合条件的连接同时发送相同的消息,也就是发布订阅模式.
 
-下面的例子[C2](https://github.com/tutorialforgolang/go-server/tree/master/code/Websocket%E6%8E%A5%E5%8F%A3%E6%9C%8D%E5%8A%A1/c2)我们就利用http的url构造room的概念来限定广播的范围,进入一个room就相当于订阅了一个topic,离开room也就相当于取消订阅.为此我们构造了两个结构:
+下面的例子[C2](https://github.com/hsz1273327/TutorialForGoLang/tree/master/src/%E4%BD%BF%E7%94%A8Golang%E6%90%AD%E5%BB%BA%E5%90%8E%E7%AB%AF%E6%9C%8D%E5%8A%A1/code/Websocket%E6%8E%A5%E5%8F%A3%E6%9C%8D%E5%8A%A1/c2)我们就利用http的url构造room的概念来限定广播的范围,进入一个room就相当于订阅了一个topic,离开room也就相当于取消订阅.为此我们构造了两个结构:
 
 + Exchange 用于管理一个room的订阅,取消订阅,广播消息,其使用`github.com/rfyiamcool/syncmap`的`syncmap.Map`结构代替set结构维护客户端的连接.这是标准库`sync.Map`的一个扩展,是一个线程安全的map结构,我们用它代替set,之所以不用默认的map是因为它不是线程安全的,我们有要定时删除不用room的逻辑,这可能引起资源冲突.不过要注意这个库有些小bug,用的时候要小心.当然我们也可以使用[github.com/deckarep/golang-set](https://github.com/deckarep/golang-set)中的线程安全set,我们在下一个例子中使用.
 
@@ -442,7 +442,7 @@ err = ws.WriteJSON(message)
 
 ## 主动推送广播
 
-在上面的例子中广播是由客户端触发发起的,这依然是请求响应模式,我们来构造一个由服务端主动推送的例子[C3](https://github.com/tutorialforgolang/go-server/tree/master/code/Websocket%E6%8E%A5%E5%8F%A3%E6%9C%8D%E5%8A%A1/c3),它会每隔3s向房间中的客户端推送当前时间
+在上面的例子中广播是由客户端触发发起的,这依然是请求响应模式,我们来构造一个由服务端主动推送的例子[C3](https://github.com/hsz1273327/TutorialForGoLang/tree/master/src/%E4%BD%BF%E7%94%A8Golang%E6%90%AD%E5%BB%BA%E5%90%8E%E7%AB%AF%E6%9C%8D%E5%8A%A1/code/Websocket%E6%8E%A5%E5%8F%A3%E6%9C%8D%E5%8A%A1/c3),它会每隔3s向房间中的客户端推送当前时间
 
 ```golang
 func time_pusher() {

@@ -21,7 +21,7 @@ GRpc是一种跨语言的Rpc,它建立在http2上使用[protobuf](https://develo
 
 ## 请求-响应
 
-这个例子[C0]()我们来实现一个简单的服务--输入一个数,输出这个数的平方
+这个例子[C0](https://github.com/hsz1273327/TutorialForGoLang/tree/master/src/%E4%BD%BF%E7%94%A8Golang%E6%90%AD%E5%BB%BA%E5%90%8E%E7%AB%AF%E6%9C%8D%E5%8A%A1/code/GRpc%E6%8E%A5%E5%8F%A3%E6%9C%8D%E5%8A%A1/c0)我们来实现一个简单的服务--输入一个数,输出这个数的平方
 
 ### 最终整个项目的结构
 
@@ -229,7 +229,7 @@ client: squarerpc_service/square_service.pb.go client/client.go
 
 这种需求比较常见,有点类似,python中的range函数,它生成的是一个流而非一个数组,它会一次一条的按顺序将数据发送回请求的客户端.
 
-这个例子[C1]()实现了给出一个正整数,它会返回从0开始到它为止的每个整数的平方.
+这个例子[C1](https://github.com/hsz1273327/TutorialForGoLang/tree/master/src/%E4%BD%BF%E7%94%A8Golang%E6%90%AD%E5%BB%BA%E5%90%8E%E7%AB%AF%E6%9C%8D%E5%8A%A1/code/GRpc%E6%8E%A5%E5%8F%A3%E6%9C%8D%E5%8A%A1/c1)实现了给出一个正整数,它会返回从0开始到它为止的每个整数的平方.
 
 ### 修改protobuf文件
 
@@ -288,7 +288,7 @@ stream, err := client.RangeSquare(ctx, &pb.Message{Message: query})
 
 这种需求不是很多见,可能用的比较多的是收集一串数据后统一进行处理吧,流只是可以确保是同一个客户端发过来的而已.
 
-这个例子[C2]()实现了传过来一串数,之后返回他们的平方和
+这个例子[C2](https://github.com/hsz1273327/TutorialForGoLang/tree/master/src/%E4%BD%BF%E7%94%A8Golang%E6%90%AD%E5%BB%BA%E5%90%8E%E7%AB%AF%E6%9C%8D%E5%8A%A1/code/GRpc%E6%8E%A5%E5%8F%A3%E6%9C%8D%E5%8A%A1/c2)实现了传过来一串数,之后返回他们的平方和
 
 ### 修改protobuf文件
 
@@ -353,7 +353,7 @@ log.Printf("Route summary: %v", reply)
 
 ## 流请求-流响应
 
-将上面两种方式结合起来,就是我们的第四种方式,请求为一个流,响应也是流.这两个流可以是相互交叉的也可以是请求完后再返回一个流.他们在写pb文件时是相同的写法
+将上面两种方式结合起来,就是我们的第四种方式,请求为一个流,响应也是流.代码在[C3](https://github.com/hsz1273327/TutorialForGoLang/tree/master/src/%E4%BD%BF%E7%94%A8Golang%E6%90%AD%E5%BB%BA%E5%90%8E%E7%AB%AF%E6%9C%8D%E5%8A%A1/code/GRpc%E6%8E%A5%E5%8F%A3%E6%9C%8D%E5%8A%A1/c3)这两个流可以是相互交叉的也可以是请求完后再返回一个流.他们在写pb文件时是相同的写法
 
 ```protobuf
 service SquareService {
@@ -426,6 +426,7 @@ stream.CloseSend()
 
 ### 请求的进行中就返回响应
 
+代码在[C4](https://github.com/hsz1273327/TutorialForGoLang/tree/master/src/%E4%BD%BF%E7%94%A8Golang%E6%90%AD%E5%BB%BA%E5%90%8E%E7%AB%AF%E6%9C%8D%E5%8A%A1/code/GRpc%E6%8E%A5%E5%8F%A3%E6%9C%8D%E5%8A%A1/c4)
 + 修改服务端
 
 ```go

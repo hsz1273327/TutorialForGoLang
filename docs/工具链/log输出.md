@@ -2,7 +2,7 @@
 
 虽然go有一个log模块,但太过简陋了,现在比较常见的使用[github.com/sirupsen/logrus](https://github.com/sirupsen/logrus)这个包优势在于全面,支持结构化log,支持log分级,也支持写入文件.
 
-当然在使用docker的条件下log输出到文件并不是一个必要的事情.这个部分的例子子我放在[项目的code文件夹下]()
+当然在使用docker的条件下log输出到文件并不是一个必要的事情.这个部分的例子子我放在[项目的code文件夹下](https://github.com/hsz1273327/TutorialForGoLang/tree/master/src/%E5%B7%A5%E5%85%B7%E9%93%BE/code/testlog)
 
 我通常会为log建立一个单独的子模块logger,这样的好处是不容易冲突.项目的结构是:
 

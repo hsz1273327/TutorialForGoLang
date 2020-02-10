@@ -72,7 +72,7 @@ Hello, 世界 Golang!
 
 ## 静态库
 
-go语言早期只支持[静态库](https://baike.baidu.com/item/%E9%9D%99%E6%80%81%E5%BA%93/8955694),我们的第二个例子就来构建一个静态库.这个静态库实现[牛顿法求平方根](https://tour.go-zh.org/flowcontrol/8).
+go语言早期只支持[静态库](https://baike.baidu.com/item/%E9%9D%99%E6%80%81%E5%BA%93/8955694),我们的第二个例子就来构建一个静态库.这个静态库实现[牛顿法求平方根](https://tour.go-zh.org/flowcontrol/8).在[我们的项目code文件夹下可以找到代码](https://github.com/hsz1273327/TutorialForGoLang/tree/master/src/%E5%B7%A5%E5%85%B7%E9%93%BE/code/testcalculsqrt)
 
 
 ```go
