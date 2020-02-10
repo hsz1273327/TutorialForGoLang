@@ -1,0 +1,5 @@
+github.com/davecgh/go-spew v1.1.1/go.mod h1:J7Y8YcW2NihsgmVo/mv3lAwl/skON4iLHjSsI+c5H38=
+github.com/hashicorp/hcl v1.0.0 h1:0Anlzjpi4vEasTeNFn2mLJgTSwt0+6sfsiTG8qcWGx4=
+github.com/hashicorp/hcl v1.0.0/go.mod h1:E5yfLk+7swimpb2L/Alb/PJmXilQ/rhwaUYs4T20WEQ=
+github.com/paked/configure v0.0.0-20190218140148-28f9c3f21a44 h1:kjzfKpM4fElkBIN77VEjv1VXpAEQhYLrhjex/by6aOU=
+github.com/paked/configure v0.0.0-20190218140148-28f9c3f21a44/go.mod h1:y9MA8YrqgIDBMhU+Dgzu5okImVGccMdjHnWv6md5rfs=

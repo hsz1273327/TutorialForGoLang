@@ -1,0 +1,10 @@
+syntax = "proto3";
+package squarerpc_service;
+
+service SquareService {
+    rpc Square (Message) returns (Message){}
+}
+
+message Message {
+    double Message = 1;
+}
