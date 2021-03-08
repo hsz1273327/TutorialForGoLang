@@ -17,7 +17,6 @@ testlog\
 
 ```
 
-
 + logger.go
 
     ```golang
@@ -48,32 +47,32 @@ testlog\
 package main
 
 import (
-	"testlog/logger"
+    "testlog/logger"
 
-	logrus "github.com/sirupsen/logrus"
+    logrus "github.com/sirupsen/logrus"
 )
 
 func main() {
-	logger.Logger.SetLevel(logrus.InfoLevel)
-	logger.Logger.Info("测试")
-	logger.Log.Info("测试")
-	logger.Logger.WithFields(logrus.Fields{
-		"event": "field",
-	}).Info("测试 field")
-	logger.Log.WithFields(logrus.Fields{
-		"event": "field",
-	}).Info("测试 field")
+    logger.Logger.SetLevel(logrus.InfoLevel)
+    logger.Logger.Info("测试")
+    logger.Log.Info("测试")
+    logger.Logger.WithFields(logrus.Fields{
+        "event": "field",
+    }).Info("测试 field")
+    logger.Log.WithFields(logrus.Fields{
+        "event": "field",
+    }).Info("测试 field")
 
-	logger.Logger.SetLevel(logrus.WarnLevel)
-	logger.Logger.Info("测试 INFO")
-	logger.Log.Info("测试 INFO")
-	logger.Logger.Warn("测试 warn")
-	logger.Log.Warn("测试 warn")
+    logger.Logger.SetLevel(logrus.WarnLevel)
+    logger.Logger.Info("测试 INFO")
+    logger.Log.Info("测试 INFO")
+    logger.Logger.Warn("测试 warn")
+    logger.Log.Warn("测试 warn")
 }
 
 ```
 
-##  结构化输出
+## 结构化输出
 
 我们只需要设置log对象的`.SetFormatter(&logrus.JSONFormatter{})`就可以输出json格式的log了.而格式化输出中默认的字段有
 
@@ -90,6 +89,7 @@ log.WithFields(logrus.Fields{
         "common": "this is a common field",
     })
 ```
+
 添加字段,这个新对象我们可以拿它再执行`Info`这类方法来输出log,这样我们就有了两种方法
 
 + 在需要打log时使用
@@ -112,12 +112,42 @@ var logger = log.WithFields(logrus.Fields{
 logger.Info("msg)
 ```
 
-
 ## 设置level
 
 我们只要使用log实例的`.SetLevel(logrus.InfoLevel)`方法就可以设置log等级.通常我们会设置在`logrus.WarnLevel`这一级
 
-
 ## 另一个log库
 
 在github上另一个以快为特色的log库是[go.uber.org/zap](https://github.com/uber-go/zap),在对性能有更高要求的场景下建议改用这个
+
+## 使用[loggerhelper](https://github.com/Golang-Tools/loggerhelper)来打log
+
+这部分也是私货,我做了一个`logrus`的代理工具,可以在代码中先使用它打log,后通过`Init`或者`InitWithOutput`接口初始化定义log的具体全局行为.
+
+其用法如下:
+
+```go
+package main
+
+import (
+    log "github.com/Golang-Tools/loggerhelper"
+    "io/ioutil"
+    "os"
+    "github.com/sirupsen/logrus"
+    "github.com/sirupsen/logrus/hooks/writer"
+)
+func main() {
+    hook := writer.Hook{ // Send logs with level higher than warning to stderr
+        Writer: os.Stderr,
+        LogLevels: []logrus.Level{
+            logrus.PanicLevel,
+            logrus.FatalLevel,
+            logrus.ErrorLevel,
+            logrus.WarnLevel,
+        },
+    }
+    log.InitWithOutput("WARN", log.Dict{"d": 3}, ioutil.Discard, &hook)
+    log.Info("test")
+    log.Warn("qweqwr", log.Dict{"a": 1})
+}
+```

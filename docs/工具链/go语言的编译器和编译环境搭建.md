@@ -20,7 +20,7 @@ brew install golang
 
 ## 编译和解释
 
-从python,js这类动态语言过来的同学可能有些不理解什么是编译器.在动态语言中有解释器用于解释执行源码,即将源码先翻译为二进制码,然后解释器将这些二进制码通过调用内部的对应虚拟机执行.向java虽然说自己是静态语言,但实质上也是这个流程,只是它是按模块读取二进制码不是逐行读取,并且不允许运行时修改而已.
+从python,js这类动态语言过来的同学可能有些不理解什么是编译器.在动态语言中有解释器用于解释执行源码,即将源码先翻译为二进制码,然后解释器将这些二进制码通过调用内部的对应虚拟机执行.像java虽然说自己是静态语言,但实质上也是这个流程,只是它是按模块读取二进制码不是逐行读取,并且不允许运行时修改而已.
 
 而类似C语言,Go语言这类则是完全不一样的路数--编译器会先读取源码,做好类型检测,语法检测,然后将其直接编译为机器可以执行的机器码,然后通过链接的方式将不容模块链接合并成动态库,静态库或者可执行文件.
 
@@ -28,52 +28,43 @@ brew install golang
 
 ## helloworld
 
-我们惯例的从一个helloworld开始这一系列.本文的例子全部是在`$GOPATH`下编程,不在其中编程可以看下一篇.
+我们惯例的从一个helloworld开始这一系列.一个典型的go语言项目结构中包括以下几个部分:
 
-```go
-package main
+1. `go.mod`文件,用于描述项目的依赖关系
 
-import "fmt"
+    ```text
+    module helloworld //描述项目名
 
-func main() {
-	fmt.Println("Hello, 世界 Golang!")
-}
-```
+    go 1.15 //描述项目最低支持的go语言版本
+    ```
 
-请在你的`$GOPATH/src`下新建一个文件夹`helloworld`,之后再在其中新建一个文件`helloworld,go`,将上面的源码复制进去即可.
+2. 入口文件,用于作为程序入口
 
-这个例子中我们的`package`是`main`,这就标志着它是一个可执行文件的源码入口,同时也意味着这个项目的源码是一个可执行文件的源码.
+    ```go
+    package main
 
-一个可执行文件源码必须由一个带有`main`函数,且package为`main`的文件,这个文件就是其入口文件.
+    import "fmt"
+
+    func main() {
+        fmt.Println("Hello, 世界 Golang!")
+    }
+    ```
 
 ### 编译可执行文件
 
-go编译程序使用命令[`go build [-o output] [-i] [build flags] [packages]`](https://golang.org/cmd/go/#hdr-Compile_packages_and_dependencies)
-
-在我们这个helloworld项目来说,只需要在`$GOPATH`目录下使用`go build helloworld`即可,这种做法构造的可执行程序会在`$GOPATH`目录下,指定`-o`可以改变路径.另一种做法是cd到项目文件夹根目录,直接执行`go build`,这种方式会编译到项目根目录.
-
-
-### 安装helloworld程序
-
-如果我们希望编译好后可执行文件自动放入`$GOPATH/bin`文件夹,可以使用[`go install [-i] [build flags] [packages]`](https://golang.org/cmd/go/#hdr-Compile_and_install_packages_and_dependencies).
-
-和`go build`一样有两种方式
-1. 在`$GOPATH`目录下使用`go install helloworld`
-2. cd到项目文件夹根目录,直接执行`go install`
+go编译程序使用命令[`go build [-o output] [-i] [build flags] [入口文件]`](https://golang.org/cmd/go/#hdr-Compile_packages_and_dependencies)
 
 ### 执行程序
 
-由于我们的`$GOPATH/bin`已经在`PATH`中,因此可以直接执行
-
-```shell
-~ helloworld
-Hello, 世界 Golang!
-```
+和c语言一样,我们直接执行编译出来的可执行文件即可.
 
 ## 静态库
 
-go语言早期只支持[静态库](https://baike.baidu.com/item/%E9%9D%99%E6%80%81%E5%BA%93/8955694),我们的第二个例子就来构建一个静态库.这个静态库实现[牛顿法求平方根](https://tour.go-zh.org/flowcontrol/8).在[我们的项目code文件夹下可以找到代码](https://github.com/hsz1273327/TutorialForGoLang/tree/master/src/%E5%B7%A5%E5%85%B7%E9%93%BE/code/testcalculsqrt)
+go语言早期只支持[静态库](https://baike.baidu.com/item/%E9%9D%99%E6%80%81%E5%BA%93/8955694),我们的第二个例子就来构建一个静态库.这个静态库实现[牛顿法求平方根](https://tour.go-zh.org/flowcontrol/8).
 
+go在早期使用`GOPATH`来控制包依赖,现在`GOPATH`已经基本不再被推荐使用,官方现在推的是`go mod`模式,也就是我们上面的模式.但而即便到了现在我们本地构造静态库依然只能使用`GOPATH`模式.这种模式说白了就是把项目全部放在环境变量`GOPATH`指定的根目录下.比如我们要构造一个静态链接库`mymath`,就在`$GOPATH/src/mymath`目录下写源码即可
+
++ sqrt.go
 
 ```go
 package mymath
@@ -86,13 +77,6 @@ func Sqrt(x float64) float64 {
 	return z
 }
 ```
-
-go代码要求模块的:
-
-+ package为短命名且不和标准库冲突.
-+ 函数使用驼峰命名法
-+ 接口(interface)以`er`结尾
-+ 结构体名应该是名词或名词短语
 
 go中判断一个函数或结构体是否模块外可见使用的是首字母来区分,如果是大写则为可见,否则不可见.像上面的代码我们的`Sqrt`函数就是可见的.
 
@@ -124,20 +108,7 @@ func main() {
 }
 ```
 
-这个项目我们放在`$GOPATH/src/calculsqrt`下,文件取名为`main.go`
-
-之后使用`go install`命令安装这个项目,我们可以看到它被正常编译了.
-
-这边来解释下import命令,import使用语法
-
-```go
-import (
-    ...
-    [alias_name] "path/to/lib"
-)
-```
-
-来调用可用的静态库,其搜索路劲按顺序依次为
+调用可用的静态库,其搜索路劲按顺序依次为
 
 1. 本地`vendor`文件夹(这个在下一节`依赖控制`部分讲)
 2. 环境变量`GOPATH`下
@@ -145,6 +116,19 @@ import (
 
 如果我们给库定义了别名,那么我们就可以在后面的代码中使用这个别名代表这个库,这就有点像python中的`import xxx as yyy`
 
+### go mod模式下的"本地静态库"
+
+如果我们希望本地构造静态库,又希望不用`GOPATH`而是使用`go mod`,那目前看是不行的,但我们还是可以通过迂回的方式使用`本地静态库`.
+就是在要使用本地静态库的项目的`go.mod`中使用如下设置将依赖的本地库指定给调用方即可
+
+```text
+require mymath v0.0.0
+
+replace mymath => ../mymath
+
+```
+
+这种方式本质上并没有使用静态库,而是使用了其源码,golang的最大优势就是编译快,利用这一优势实际上静态库并不是很有必要.这也是为啥golang模块的分发方式是源码分发.
 
 ## 动态库 (golang 1.8+)
 
@@ -247,7 +231,6 @@ go的编译速度很快,算是它的一大卖点,但比较让人诟病的就是�
     upx -9 -o $output $target
     ```
     其中9是压缩等级,压缩等级为1到9,9是压缩率最大的等级,压缩原始可执行文件后的可执行文件大小为1.12m;压缩经过`-ldflags`缩减过的可执行文件后其大小为576k.无论如何upx都是一个值得一试的工具,它确实可以解决问题.
-
 
 ### Linux/mac下借助bash脚本实现选择平台编译
 
@@ -504,3 +487,4 @@ if ($cmd -eq "all"){
     echo "unknown cmd $cmd"
 }
 ```
+
