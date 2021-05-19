@@ -54,6 +54,9 @@ brew install golang
 
 go编译程序使用命令[`go build [-o output] [-i] [build flags] [入口文件]`](https://golang.org/cmd/go/#hdr-Compile_packages_and_dependencies)
 
+我们的纯go程序编译出来是纯静态的,因此可以没有任何依赖的执行,但go支持使用`cgo`嵌入c语言,这就会引入依赖,控制是否使用`cgo`的环境变量为`CGO_ENABLED`,为`1`表示使用cgo,为`0`表示不适用.
+如果我们不用cgo那最好确认好`CGO_ENABLED=0`
+
 ### 执行程序
 
 和c语言一样,我们直接执行编译出来的可执行文件即可.
@@ -62,7 +65,7 @@ go编译程序使用命令[`go build [-o output] [-i] [build flags] [入口文�
 
 go语言早期只支持[静态库](https://baike.baidu.com/item/%E9%9D%99%E6%80%81%E5%BA%93/8955694),我们的第二个例子就来构建一个静态库.这个静态库实现[牛顿法求平方根](https://tour.go-zh.org/flowcontrol/8).
 
-go在早期使用`GOPATH`来控制包依赖,现在`GOPATH`已经基本不再被推荐使用,官方现在推的是`go mod`模式,也就是我们上面的模式.但而即便到了现在我们本地构造静态库依然只能使用`GOPATH`模式.这种模式说白了就是把项目全部放在环境变量`GOPATH`指定的根目录下.比如我们要构造一个静态链接库`mymath`,就在`$GOPATH/src/mymath`目录下写源码即可
+go在早期使用`GOPATH`来控制包依赖,现在`GOPATH`已经基本不再被推荐使用,官方现在推的是`go mod`模式,也就是我们上面的模式.但如果希望本地构造的静态库可以被简单的放入`GOPATH`中依然只能使用`GOPATH`模式.这种模式说白了就是把项目全部放在环境变量`GOPATH`指定的根目录下.比如我们要构造一个静态链接库`mymath`,就在`$GOPATH/src/mymath`目录下写源码即可.当然`go mod`模式也可以编译编译静态库,只是默认存放位置的位置不知道在哪里,因此更常见的用法是使用`-o`指定存放位置
 
 + sqrt.go
 
@@ -70,11 +73,11 @@ go在早期使用`GOPATH`来控制包依赖,现在`GOPATH`已经基本不再被�
 package mymath
 
 func Sqrt(x float64) float64 {
-	z:=1.0
-	for i:=0;i<10;i++ {
-		z -= (z*z-x)/(2*z)
-	}
-	return z
+    z:=1.0
+    for i:=0;i<10;i++ {
+        z -= (z*z-x)/(2*z)
+    }
+    return z
 }
 ```
 
@@ -86,14 +89,16 @@ go中判断一个函数或结构体是否模块外可见使用的是首字母来
 
 编译静态库一样是两种方式:
 
-1. 在`$GOPATH`下使用`go install my/mymath`命令
-2. 在`$GOPATH/src/my/mymath`目录下使用`go install`命令
-   
-这两种方式都可以在`$GOPATH/pkg/{platform}`目录下的`my`文件夹下生成`mymath.a`静态库.这个`platform`取决于你使用的是什么操作系统什么cpu,比如我是mac,那就是`darwin_amd64`.
+1. `go path`模式
+   1. 在`$GOPATH`下使用`go install my/mymath`命令
+   2. 在`$GOPATH/src/my/mymath`目录下使用`go install`命令
+
+2. `go mod`模式
+   1. 在有`go.mod`的文件夹下使用`go build`命令
 
 ### 调用静态库
 
-调用静态库也很简单,只需要使用`import`语句即可
+如果静态库在`GOPATH`模式下安装,则调用静态库也很简单,只需要使用`import`语句即可
 
 ```go
 package main
@@ -104,7 +109,7 @@ import (
 )
 
 func main() {
-	fmt.Println(mymath.Sqrt(2))
+    fmt.Println(mymath.Sqrt(2))
 }
 ```
 
@@ -142,20 +147,21 @@ replace mymath => ../mymath
 package main
 
 func Sqrt(x float64) float64 {
-	z:=1.0
-	for i:=0;i<10;i++ {
-		z -= (z*z-x)/(2*z)
-	}
-	return z
+    z:=1.0
+    for i:=0;i<10;i++ {
+        z -= (z*z-x)/(2*z)
+    }
+    return z
 }
 ```
+
 这个文件我们放在`$GOPATH/src/calculsqrt_plugin`文件夹下,使用如下命令编译
 
 ```bash
-go build -buildmode=plugin -o sqrt.so
+go build -buildmode=plugin -o sqrt.plugin
 ```
 
-这样就可以编译一个插件了,执行上面的命令后我们可以再这个文件夹下获得动态库文件`sqrt.so`
+这样就可以编译一个插件了,执行上面的命令后我们可以再这个文件夹下获得动态库文件`sqrt.plugin`
 
 ### 使用动态库
 
@@ -165,25 +171,25 @@ go build -buildmode=plugin -o sqrt.so
 package main
 
 import (
-	"fmt"
-	"plugin"
+    "fmt"
+    "plugin"
 )
 
 func main() {
     // 加载动态库
-	module, err := plugin.Open("./sqrt.so")
-	if err != nil {
-		fmt.Println("plugin load error")
-	} else {
+    module, err := plugin.Open("./sqrt.so")
+    if err != nil {
+        fmt.Println("plugin load error")
+    } else {
         //在动态库中查找方法
-		Sqrt, err := module.Lookup("Sqrt")
-		if err != nil {
-			fmt.Println("no Sqrt in plugin")
-		} else {
+        Sqrt, err := module.Lookup("Sqrt")
+        if err != nil {
+            fmt.Println("no Sqrt in plugin")
+        } else {
             //为函数赋予类型后再调用
-			fmt.Println(Sqrt.(func(float64) float64)(2))
-		}
-	}
+            fmt.Println(Sqrt.(func(float64) float64)(2))
+        }
+    }
 }
 ```
 
@@ -191,7 +197,19 @@ func main() {
 
 之后就像之前的程序编译一样直接使用`go install`安装就好,可以看到程序正常编译和安装了,执行`calculsqrt_plugin`也可以获得正确答案.
 
-相对而言我还是更加推荐使用静态库的,go的插件写法复杂不说,编译后项目的大小也比不用的大,除非希望借助插件实现动态热更新,否则完全找不到使用的理由.而热更新其实完全可以借助docker swarm这样的集群工具实现
+### go语言的分发模式点评
+
+go语言虽然编译为静态库和插件库,但实际上一般都不用这些方法分发库,而是用更简单粗暴的方法--源码分发.下面我们来看下这三种方式的对比:
+
+| 分发方式 | 跨平台                               | 安装时长 | 调用方便程度 |
+| -------- | ------------------------------------ | -------- | ------------ |
+| 静态库   | 必须先编译后分发                     | 短       | 很方便       |
+| 插件库   | 必须现编译后分发,且不支持windows平台 | 短       | 不太方便     |
+| 源码库   | 直接分发                             | 比较短   | 很方便       |
+
+我们可以看出三种方法的胜负手在于安装时长,golang由于编译极快,因此依赖源码下载到本地后现编译也不会比直接使用二进制库慢多少,而其它方面源码分发也是最方便的,因此golang的主流分发方式就是源码分发.
+
+而像热插拔这样的特性在极短的编译时间面前意义不大,完全可以依靠部署平台(docker swarm/k8s等)的热更新实现
 
 ## 交叉编译
 
@@ -204,12 +222,12 @@ go的另一大卖点是交叉编译,也就说我在mac上可以直接编译windo
 
 下面是目前支持的交叉编译组合:
 
-OS|ARCH|OS version
----|---|---
-`linux`|`386 / amd64 / arm`|`>= Linux 2.6`
-`darwin`|`386 / amd64`|`OS X (Snow Leopard + Lion)`
-`freebsd`|`386 / amd64`|`>= FreeBSD 7`
-`windows`|`386 / amd64`|`>= Windows 2000`
+| OS        | ARCH                | OS version                   |
+| --------- | ------------------- | ---------------------------- |
+| `linux`   | `386 / amd64 / arm` | `>= Linux 2.6`               |
+| `darwin`  | `386 / amd64 / arm` | `OS X (Snow Leopard + Lion)` |
+| `freebsd` | `386 / amd64`       | `>= FreeBSD 7`               |
+| `windows` | `386 / amd64`       | `>= Windows 2000`            |
 
 无论是`go build`还是`go install`都可以通过指定这两个环境变量编译为对应平台的程序.它会在对应的文件夹下生成一个平台名+cpu命令集名的文件夹,用于存放跨平台的库或者程序,这其实在编译静态库的部分我们已经见识过了.
 
@@ -228,9 +246,10 @@ go的编译速度很快,算是它的一大卖点,但比较让人诟病的就是�
     丑话说前面,upx并不保证可以在各个平台上正常执行,因此这个方案并不稳.upx是一个压缩工具,可以直接压缩可执行文件并且多数情况下不会影响其执行(但执行开始时会有一个解压过程).我们可以去项目的[release栏目下](https://github.com/upx/upx/releases)下按自己的开发平台下载这个工具,并将其加入到PATH环境变量下.
 
     ```bash
-    upx -9 -o $output $target
+    upx --best --lzma -o $output $target
     ```
-    其中9是压缩等级,压缩等级为1到9,9是压缩率最大的等级,压缩原始可执行文件后的可执行文件大小为1.12m;压缩经过`-ldflags`缩减过的可执行文件后其大小为576k.无论如何upx都是一个值得一试的工具,它确实可以解决问题.
+
+    压缩原始可执行文件后的可执行文件大小为1.12m;压缩经过`-ldflags`缩减过的可执行文件后其大小为576k.无论如何upx都是一个值得一试的工具,它确实可以解决问题.
 
 ### Linux/mac下借助bash脚本实现选择平台编译
 
@@ -487,4 +506,3 @@ if ($cmd -eq "all"){
     echo "unknown cmd $cmd"
 }
 ```
-
