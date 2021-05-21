@@ -12,33 +12,35 @@ go语言现在的主战场就是网络编程.这篇其实主要也是为了讲�
 本文主要讲:
 
 + http服务
-  + 使用gin构造RESTful接口服务
-  + 使用gin构造SSE服务用于推送消息
-  + 使用gin构造websocekt接口服务
+    + RESTful接口服务
+    + SSE服务用于推送消息
+    + websocekt接口服务
 + rpc服务
-  + grpc构造接口服务
-  + jsonrpc构造接口服务
+    + grpc构造接口服务
+    + jsonrpc构造接口服务
 + p2p程序
-  + webrtc程序
+    + webrtc程序(+ [webrtc](https://github.com/pions/webrtc)一种在浏览器端也有实现的p2p即时通信技术)
 
 而后端相关的技术有:
 
 + 关系数据库技术,常用于保存业务数据.常见的有
-  + [PostgreSQL](http://www.postgres.cn/docs/12/),一般用在服务端
-  + [sqlite3](https://www.sqlite.org/doclist.html),一般用在客户端
+    + [PostgreSQL](http://www.postgres.cn/docs/12/),一般用在服务端
+    + [sqlite3](https://www.sqlite.org/doclist.html),一般用在客户端
 
 + orm技术,业务上一般使用orm来操作关系数据库.常用的orm有[xormplus](https://github.com/xormplus/xorm)
 
 + 共享内存技术,常见的是Redis,我们一般使用[redis](https://github.com/go-redis/redis)
 
 + 消息中间件技术,常见的有:
-  + rabbitMQ,用于相对轻量的分发任务.我们使用[amqp](https://github.com/streadway/amqp)
-  + redis,用于在追求实时性,不在意数据完整性的业务场景下使用,常见的场景比如聊天室.
-  + kafka,用于在严格追求数据完整性和顺序,同时对吞吐量有要求时使用,比如业务层向数据层同步数据,事件驱动任务等.我们使用[gopkg.in/confluentinc/confluent-kafka-go.v1/kafka](https://github.com/confluentinc/confluent-kafka-go)
+    + rabbitMQ,用于相对轻量的分发任务.我们使用[amqp](https://github.com/streadway/amqp)
+    + redis,用于在追求实时性,不在意数据完整性的业务场景下使用,常见的场景比如聊天室.
+    + kafka,用于在严格追求数据完整性和顺序,同时对吞吐量有要求时使用,比如业务层向数据层同步数据,事件驱动任务等.我们使用[gopkg.in/confluentinc/confluent-kafka-go.v1/kafka](https://github.com/confluentinc/confluent-kafka-go)
 
-+ [webrtc](https://github.com/pions/webrtc)一种在浏览器端也有实现的p2p即时通信技术
++ 数据序列化反序列化技术,常见的有:
+    + 标准库的json性能比较差,我们有时会用[github.com/json-iterator/go](https://github.com/json-iterator/go)替代
+    + 有时我们也会考虑使用[msgpack](https://github.com/vmihailenco/msgpack)代替json作为表现层序列化协议
+    + 另一种思路使用必须预先定义好schema的[Protobuffer](https://github.com/protocolbuffers/protobuf),一般用在rpc技术或者一些定义严格的服务中
 
-+ 由于go语言标准库的log工具比较弱,我们有时用[logrus](https://github.com/sirupsen/logrus)来代替
-+ 标准库的json性能比较差,我们有时会用[github.com/json-iterator/go](https://github.com/json-iterator/go)替代
-+ 有时我们也会考虑使用[msgpack](https://github.com/vmihailenco/msgpack)代替json作为表现层协议
-+ 标准库没有原生的协程池,我们有时用[ants](https://github.com/panjf2000/ants)
++ 科学计算,虽然多数时候go主要处理的都是io密集型任务,但指不定也会用到要计算的部分,一般会用[gonum](https://github.com/gonum/gonum)
+
+这些库就不一一介绍了,用的的时候去现查即可.
