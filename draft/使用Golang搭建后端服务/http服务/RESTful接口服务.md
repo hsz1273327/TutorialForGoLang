@@ -303,7 +303,7 @@ func main(){
 
 ## 服务测试
 
-RESTful接口服务的服务测试相对还是比价好做的,我们可以参照下面来实现:
+Gin框架提供了`ServeHTTP(w, req)`接口用于测试简单HTTP接口,而RESTful接口服务都是简单HTTP接口,因此服务测试相对还是比较好做的,我们可以参照下面来实现:
 
 ```golang
 package main
@@ -341,3 +341,5 @@ func TestPingRoute(t *testing.T) {
     assert.Equal(t, "pong", w.Body.String())
 }
 ```
+
+## 实现用户注册和登录接口
