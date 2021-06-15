@@ -15,9 +15,7 @@ go语言现在的主战场就是网络编程.这篇其实主要也是为了讲�
     + RESTful接口服务
     + SSE服务用于推送消息
 
-+ rpc服务
-    + grpc构造接口服务
-    + jsonrpc构造接口服务
++ grpc服务
 
 + websocekt服务
 
