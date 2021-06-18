@@ -15,10 +15,11 @@ go语言现在的主战场就是网络编程.这篇其实主要也是为了讲�
     + RESTful接口服务
     + SSE服务用于推送消息
 
+<!-- 
 + websocekt服务
 
 + p2p程序
-    + webrtc程序(+ [webrtc](https://github.com/pions/webrtc)一种在浏览器端也有实现的p2p即时通信技术)
+    + webrtc程序(+ [webrtc](https://github.com/pions/webrtc)一种在浏览器端也有实现的p2p即时通信技术) -->
 
 另外还有grpc技术,由于grpc技术比较通用,我写在了[这篇博文](https://blog.hszofficial.site/introduce/2021/06/17/grpc%E6%8E%A5%E5%8F%A3%E6%9C%8D%E5%8A%A1/)中,这里就不赘述了.
 
