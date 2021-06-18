@@ -215,12 +215,16 @@ go语言虽然编译为静态库和插件库,但实际上一般都不用这些�
 
 go的另一大卖点是交叉编译,也就说我在mac上可以直接编译windows可以执行的程序.目前这一功能在各种语言中都属于相当先进的特性.
 
+不过注意交叉编译是有限制的,如果用到CGO则不能直接交叉编译.而是需要使用环境变量`CC`和`CXX`指定c/c++的对应交叉编译工具链后才能进行
+
 而使用的方式也是相当简单只要在编译时指定特定环境变量即可:
 
 + GOOS：目标操作系统
 + GOARCH：目标操作系统的架构
 
-下面是目前支持的交叉编译组合:
+我们可以使用命令`go tool dist list`查看支持交叉编译的平台,
+
+下面是目前支持的几个主流的交叉编译组合:
 
 | OS        | ARCH                | OS version                   |
 | --------- | ------------------- | ---------------------------- |
@@ -251,258 +255,38 @@ go的编译速度很快,算是它的一大卖点,但比较让人诟病的就是�
 
     压缩原始可执行文件后的可执行文件大小为1.12m;压缩经过`-ldflags`缩减过的可执行文件后其大小为576k.无论如何upx都是一个值得一试的工具,它确实可以解决问题.
 
-### Linux/mac下借助bash脚本实现选择平台编译
+## 静态可执行程序
 
-为了不用每次都敲一遍相同的代码我们可以使用[bash](http://c.biancheng.net/shell/)来简化这个操作.
+GO语言默认情况下编译出来的可执行程序都是静态的,因此它有很好的可移植性.但也并不是说无论怎样GO语言编译出来的都是静态可执行文件,因为这里面有个CGO.
 
-+ make.sh
+我们可以大致将GO语言的编译分为3类:
 
-```bash
-ASSETS="bin"
-GOARCHS=("386" "amd64")
-GOOSS=("linux" "darwin" "windows")
-export GO111MODULE="on"
-# Set the GOPROXY environment variable
-export GOPROXY="https://goproxy.io"
+1. 纯GO语言程序
+2. 标准库中有CGO实现
+3. 外部有CGO实现
 
-case $(uname) in
-Darwin)
-    case $(uname -m) in
-    x86_64)
-        cmd="mac"
-        ;;
-    *)
-        cmd="mac32"
-        ;;
-    esac
-    ;;
-*)
-    case $(uname -m) in
-    x86_64)
-        cmd="linux64"
-        ;;
-    *)
-        cmd="linux32"
-        ;;
-    esac
-    ;;
-esac
+但在讨论这3种情况之前我们先来看看为甚GO比较容易构造静态可执行程序
 
-cmd="mac"
-name="calculsqrt"
-if test $# -eq 0; then
-    cmd="mac"
-elif test $# -eq 1; then
-    cmd=$1
-elif test $# -eq 2; then
-    cmd=$1
-    name=$2
-else
-    echo "args too much"
-    exit 0
-fi
+### Runtime
 
-if ! test -d $ASSETS; then
-    mkdir $ASSETS
-fi
+之所以GO可以有这样的特性,其主要原因是它有独立实现的runtime.
 
-case $cmd in
-all)
-    for goarch in ${GOARCHS[@]}; do
-        for goos in ${GOOSS[@]}; do
-            export GOARCH=$goarch
-            export GOOS=$goos
-            target="$ASSETS/$GOOS-$GOARCH"
-            echo "---------$target----------------"
-            if ! test -d $target; then
-                mkdir $target
-            fi
-            case $goos in
-            windows)
-                go build -o $target/$name.exe
-                ;;
-            *)
-                go build -o $target/$name
-                ;;
-            esac
-        done
-    done
-    ;;
-win32)
-    export GOARCH="386"
-    export GOOS="windows"
-    target="$ASSETS/$GOOS-$GOARCH"
-    if ! test -d $target; then
-        mkdir $target
-    fi
-    go build -o $target/$name.exe
-    ;;
-win64)
-    export GOARCH="amd64"
-    export GOOS="windows"
-    target="$ASSETS/$GOOS-$GOARCH"
-    if ! test -d $target; then
-        mkdir $target
-    fi
-    go build -o $target/$name.exe
-    ;;
-mac)
-    export GOARCH="amd64"
-    export GOOS="darwin"
-    target="$ASSETS/$GOOS-$GOARCH"
-    if ! test -d $target; then
-        mkdir $target
-    fi
-    go build -o $target/$name
-    ;;
-mac32)
-    export GOARCH="386"
-    export GOOS="darwin"
-    target="$ASSETS/$GOOS-$GOARCH"
-    if ! test -d $target; then
-        mkdir $target
-    fi
-    go build -o $target/$name
-    ;;
-linux32)
-    export GOARCH="386"
-    export GOOS="linux"
-    target="$ASSETS/$GOOS-$GOARCH"
-    if ! test -d $target; then
-        mkdir $target
-    fi
-    go build -o $target/$name
-    ;;
-linux64)
-    export GOARCH="amd64"
-    export GOOS="linux"
-    target="$ASSETS/$GOOS-$GOARCH"
-    if ! test -d $target; then
-        mkdir $target
-    fi
-    go build -o $target/$name
-    ;;
-linuxarm)
-    export GOARCH="arm"
-    export GOOS="linux"
-    target="$ASSETS/$GOOS-$GOARCH"
-    if ! test -d $target; then
-        mkdir $target
-    fi
-    go build -o $target/$name
-    ;;
-*)
-    echo "unknown cmd $cmd"
-    ;;
-esac
-```
+runtime是支撑程序运行的基础,一般是编程语言和操作系统沟通的媒介.我们最熟悉的应该就是`libc`(C运行时),它是目前的主流操作系统上最普遍的运行时,通常以**动态链接库**的形式(比如`/lib/x86_64-linux-gnu/libc.so.6`)随着操作系统一起发布.而动态链接库我们知道是没法编译链接到静态可执行程序的.
 
-这个脚本允许带两个参数==平台和编译后的名字
+libc等c的runtime历史悠久,同时也是许多其他编程语言的依赖,而由于历史悠久也就带来了版本割裂的问题.许多编程语言的可移植性问题也多是`libc`引起的.
 
-### windows下借助powershell选择编译的平台
+GO语言果断没有使用`libc`而是自己另起炉灶,因此只要是纯使用go的程序就不会用到`libc`,也就可以直接编译成静态可执行程序了,同时弊端也就是GO的程序中包含runtime所以会很大.
 
-+ make.ps1
+### 标准库中有CGO实现
 
-```ps1
-$ASSETS = "bin"
-$GOARCHS = "386", "amd64"
-$GOOSS = "linux", "darwin", "windows"
-$env:GO111MODULE="on"
-# Set the GOPROXY environment variable
-$env:GOPROXY="https://goproxy.io"
+实际上go标准库中也有可以使用cgo实现的包,比如`net`,`mime/multipart`,`crypto/tls`等,当我们设置`CGO_ENABLED==1`时,这些包就会使用依赖的外部动态链接库;
 
+对于标准库有cgo的情况我们还是可以通过设置`CGO_ENABLED=0`来比较简单的构造纯静态的可执行文件的.其原理在于这些标准库的链接操作不需要使用外部链接器(`gcc`/`clang`这类).GO的编译器只要重新编译这些库的静态版本,然后将静态版本的标准库直接链接进可执行文件就可以构成纯静态的可执行文件.这种工作模式被称为`internal linking`
 
-$cmd = "win64"
-$name = "calculsqrt"
-if ($args.Count -eq 0){
-    $cmd = "win64"
-}elseif ($args.Count -eq 1){
-    $cmd = $args[0]
-}elseif ($args.Count -eq 2){
-    $cmd = $args[0]
-    $name = $args[1]
-}else{
-    echo "args too much"
-    exit
-}
- 
-if (!(Test-Path $ASSETS)) {
-    mkdir $ASSETS
-} 
+### 外部有CGO实现
 
-if ($cmd -eq "all"){
-    foreach ($env:GOARCH in $GOARCHS) {
-        foreach ($env:GOOS in $GOOSS){
-            $target = "$ASSETS/$env:GOOS-$env:GOARCH"
-            if (!(Test-Path $target)){
-                mkdir $target
-            }
-            if ($env:GOOS -eq "windows"){
-                go build -o $target/$name.exe
-            }else {
-                go build -o $target/$name
-            }
-            
-        }
-    }
-}elseif ($cmd -eq "win32") {
-    $env:GOARCH="386"
-    $env:GOOS="windows"
-    $target = "$ASSETS/$env:GOOS-$env:GOARCH"
-    if (!(Test-Path $target)){
-        mkdir $target
-    }
-    go build -o $target/$name.exe
-}elseif ($cmd -eq "win64") {
-    $env:GOARCH="amd64"
-    $env:GOOS="windows"
-    $target = "$ASSETS/$env:GOOS-$env:GOARCH"
-    if (!(Test-Path $target)){
-        mkdir $target
-    }
-    go build -o $target/$name.exe
-}elseif ($cmd -eq "mac") {
-    $env:GOARCH="amd64"
-    $env:GOOS="darwin"
-    $target = "$ASSETS/$env:GOOS-$env:GOARCH"
-    if (!(Test-Path $target)){
-        mkdir $target
-    }
-    go build -o $target/$name
-    
-}elseif ($cmd -eq "mac32") {
-    $env:GOARCH="386"
-    $env:GOOS="darwin"
-    $target = "$ASSETS/$env:GOOS-$env:GOARCH"
-    if (!(Test-Path $target)){
-        mkdir $target
-    }
-    go build -o $target/$name
-}elseif ($cmd -eq "linux32") {
-    $env:GOARCH="386"
-    $env:GOOS="linux"
-    $target = "$ASSETS/$env:GOOS-$env:GOARCH"
-    if (!(Test-Path $target)){
-        mkdir $target
-    }
-    go build -o $target/$name
-}elseif ($cmd -eq "linux64") {
-    $env:GOARCH="amd64"
-    $env:GOOS="linux"
-    $target = "$ASSETS/$env:GOOS-$env:GOARCH"
-    if (!(Test-Path $target)){
-        mkdir $target
-    }
-    go build -o $target/$name
-}elseif ($cmd -eq "linuxarm") {
-    $env:GOARCH="arm"
-    $env:GOOS="linux"
-    $target = "$ASSETS/$env:GOOS-$env:GOARCH"
-    if (!(Test-Path $target)){
-        mkdir $target
-    }
-    go build -o $target/$name
-}else{
-    echo "unknown cmd $cmd"
-}
-```
+如果外部有使用CGO,那么情况就不一样了,由于使用了外部库,我们就必须依赖外部的链接器(`gcc`/`clang`这类).这种工作模式被称作`exernal linking`.
+
+如果使用的外部库是静态链接还好,我们可以通过编译时加入flag`-ldflags '-linkmode "external" -extldflags "static"'`来强行让外部链接器做静态链接.这样还是可以构造出静态可执行文件的.
+
+但如果依赖的是动态链接库,那么自然就没办法构造为静态可执行文件了.

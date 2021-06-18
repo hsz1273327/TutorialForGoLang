@@ -22,4 +22,3 @@
         * [Gin](使用Golang搭建后端服务/Http服务/Gin.md)
         * [RESTful接口服务](使用Golang搭建后端服务/Http服务/RESTful接口服务.md)
         * [SSE接口服务](使用Golang搭建后端服务/Http服务/SSE接口服务.md)
-    * [GRpc接口服务](使用Golang搭建后端服务/GRpc接口服务.md)
