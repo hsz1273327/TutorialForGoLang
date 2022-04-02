@@ -100,18 +100,6 @@ type Callable[T RealNumber] interface {
 	A(T) error
 }
 
-type OnlyCallable interface {
-	A() error
-}
-
-type ComplexNumberAndMore interface {
-	~complex64 | ~complex128 | ~struct{ X int } | ~func(x int) error | RealNumber
-}
-
-type Exp1 interface {
-	~complex64 | ~[]complex128 | ~struct{ X int } | ~func(x int) error
-}
-
 type ACall int
 
 func (a ACall) A(x int) error {
@@ -120,15 +108,9 @@ func (a ACall) A(x int) error {
 	return nil
 }
 
-func Z[T OnlyCallable](x T) error {
-	return nil
-}
-
 func CallCallable[T Callable[int]](a T) {
 	a.A(8)
 }
-
-type TMap[T RealNumber] map[string]T
 
 func main() {
 	fmt.Println(Reduce(Map([]int{1, 2, 3, 4, 5, 6}, func(x int) int { return x + 10 }), func(x, y int) int { return x + y }))
@@ -146,6 +128,5 @@ func main() {
 
 	x := NumberSlice[int64]([]int64{10, 9, 8, 7, 6, 5, 4, 3, 2, 1})
 	fmt.Println(x.Map(func(x int64) any { return x*2 + 3 }))
-	// fmt.Println(FN(func() string { return "func ok" }).Echo("echo"))
 	CallCallable(ACall(12))
 }
