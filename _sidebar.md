@@ -26,3 +26,4 @@
         * [Gin](使用Golang搭建后端服务/http服务/Gin.md)
         * [RESTful接口服务](使用Golang搭建后端服务/http服务/RESTful接口服务.md)
         * [SSE接口服务](使用Golang搭建后端服务/http服务/SSE接口服务.md)
+* [Golang中执行python代码](Golang中执行python代码.md)
