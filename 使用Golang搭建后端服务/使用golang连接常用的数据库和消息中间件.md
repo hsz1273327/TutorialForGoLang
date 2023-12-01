@@ -16,7 +16,7 @@
 1. 可以直接执行sql语句应付复杂请求
 2. 有工具直接导出已存在的数据库表到结构体,不需要围绕这个orm重新设计数据库.
 
-本部分例子在[这里](https://github.com/hsz1273327/TutorialForGoLang/tree/master/src/%E4%BD%BF%E7%94%A8Golang%E6%90%AD%E5%BB%BA%E5%90%8E%E7%AB%AF%E6%9C%8D%E5%8A%A1/code/xorm_test)
+本部分例子在[这里](https://github.com/hsz1273327/TutorialForGoLang/tree/master/%E4%BD%BF%E7%94%A8Golang%E6%90%AD%E5%BB%BA%E5%90%8E%E7%AB%AF%E6%9C%8D%E5%8A%A1/code/xorm_test)
 xorm需要安装如下3个部分
 
 + orm本体
@@ -579,13 +579,13 @@ func randomWrite() {
 }
 ```
 
-本例代码在[这里](https://github.com/hsz1273327/TutorialForGoLang/tree/master/src/%E4%BD%BF%E7%94%A8Golang%E6%90%AD%E5%BB%BA%E5%90%8E%E7%AB%AF%E6%9C%8D%E5%8A%A1/code/influxdb_test)
+本例代码在[这里](https://github.com/hsz1273327/TutorialForGoLang/tree/master/%E4%BD%BF%E7%94%A8Golang%E6%90%AD%E5%BB%BA%E5%90%8E%E7%AB%AF%E6%9C%8D%E5%8A%A1/code/influxdb_test)
 
 ## 最常用的缓存Redis
 
 实际上分布式缓存有很多选择,但恐怕最有通用性的就是redis了,我们一般使用[github.com/go-redis/redis](https://github.com/go-redis/redis)这个库来连接redis.
 
-本部分例子在[这里](https://github.com/hsz1273327/TutorialForGoLang/tree/master/src/%E4%BD%BF%E7%94%A8Golang%E6%90%AD%E5%BB%BA%E5%90%8E%E7%AB%AF%E6%9C%8D%E5%8A%A1/code/redis_test)
+本部分例子在[这里](https://github.com/hsz1273327/TutorialForGoLang/tree/master/%E4%BD%BF%E7%94%A8Golang%E6%90%AD%E5%BB%BA%E5%90%8E%E7%AB%AF%E6%9C%8D%E5%8A%A1/code/redis_test)
 
 ### 建立连接
 
@@ -671,7 +671,7 @@ func incr_pipeline(client *redis.Client) {
 
 redis因为数双端列表和pub/sub模式,而且实时性非常好,所以在允许信息丢失的情况下经常有人用它做消息中间件,比如著名的任务队列工具celery及其衍生工具就常用redis做broker.
 
-代码[在这里](https://github.com/hsz1273327/TutorialForGoLang/tree/master/src/%E4%BD%BF%E7%94%A8Golang%E6%90%AD%E5%BB%BA%E5%90%8E%E7%AB%AF%E6%9C%8D%E5%8A%A1/code/broker_test/redis_broker)
+代码[在这里](https://github.com/hsz1273327/TutorialForGoLang/tree/master/%E4%BD%BF%E7%94%A8Golang%E6%90%AD%E5%BB%BA%E5%90%8E%E7%AB%AF%E6%9C%8D%E5%8A%A1/code/broker_test/redis_broker)
 
 > 双端列表做消息队列
 
@@ -1000,7 +1000,7 @@ kafka使用groupid来区分监听端是一次性消耗还是广播,当监听端�
 我们使用[gopkg.in/confluentinc/confluent-kafka-go.v1/kafka](https://github.com/confluentinc/confluent-kafka-go)包来连接kafka,注意这个包无法在windows下安装使用
 
 
-代码[在这里](https://github.com/hsz1273327/TutorialForGoLang/tree/master/src/%E4%BD%BF%E7%94%A8Golang%E6%90%AD%E5%BB%BA%E5%90%8E%E7%AB%AF%E6%9C%8D%E5%8A%A1/code/broker_test/kafka_broker)
+代码[在这里](https://github.com/hsz1273327/TutorialForGoLang/tree/master/%E4%BD%BF%E7%94%A8Golang%E6%90%AD%E5%BB%BA%E5%90%8E%E7%AB%AF%E6%9C%8D%E5%8A%A1/code/broker_test/kafka_broker)
 其操作是:
 
 + 生产端
